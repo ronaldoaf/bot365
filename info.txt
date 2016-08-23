@@ -1,4 +1,0 @@
-//section.qb-QuickBetModule 
-
-
-set_stake_show=$('section.qb-QuickBetModule ').hasClass('qb-QuickBetModule_SetStake')
