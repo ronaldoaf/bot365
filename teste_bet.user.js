@@ -32,34 +32,74 @@ unsafeWindow.bot={}
 
 
 
+bot.jogoLive = function (home,away){
+	jogo=-1;
+	$('div.ipe-ParticipantCouponFixtureName_Participant ').each(function(i,e){ 
+		if( 
+			($(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(0)').html()==home)  && 
+			($(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(1)').html()==away )
+		){
+			//saida=i;
+			jogo={
+					market: $(e).parents('.ipe-Market')
+			};
+				   
+		}		
+		
+	});
+	if (jogo==-1) return jogo;
+	
+	jogo.selecoes=$(jogo.market).find('.ip-Participant ');
+	jogo.numJogos=$(jogo.market).find('.ipe-ParticipantCouponFixtureName_Participant').size();
+	$(jogo.market).find('.ipe-ParticipantCouponFixtureName_Participant').each(function(i,e){ 
+		if( 
+			($(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(0)').html()==home)  && 
+			($(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(1)').html()==away )
+		){
+			jogo.positionInMarket=i;
+			jogo.posSelsJogo=[jogo.positionInMarket, jogo.positionInMarket+jogo.numJogos]
+			jogo.selHome=$(jogo.market).find('.ip-Participant').eq(jogo.posSelsJogo[0]);
+			jogo.selAway=$(jogo.market).find('.ip-Participant').eq(jogo.posSelsJogo[1]);				
+		}
+	});
+	jogo.betHome=function(){ jogo.selHome.click();   };
+	jogo.betAway=function(){ jogo.selAway.click();   };
+	
+	return jogo;
+}
+
+
+
+
+
+
+
+
+
 
 bot.onMyBets=function(){
-    console.log('Tela MyBets');
+    //console.log('Tela MyBets');       
+        
+    //Se "Live Now" não estiver selecionado Seleciona
+    if( !$('div.myb-OpenBetHeader_Button:contains(Live Now)').hasClass('myb-OpenBetHeader_ButtonSelected') ) $('div.myb-OpenBetHeader_Button:contains(Live Now)').click();
+    myBets=[];
+    $('.myb-OpenBetItem').each(function(i,e){
+        bet={
+            jogo:$(e).find('.myb-OpenBetParticipant_FixtureDescription').textOnly(),
+            mercado: $(e).find('.myb-OpenBetParticipant_MarketDescription').html(),
+            cashout:Boolean( $(e).find('span.cash-out').size() ),
+            score_atual: $(e).find('.myb-OpenBetScores_Score').text(),
+            score_inicial: $(e).find('.myb-OpenBetParticipant_HeaderTitle').text().split(')')[0].split('(')[1],  
+            stake: Number( $(e).find('.myb-OpenBetItem_StakeText').text() ),
+            toReturn: Number( $(e).find('.myb-OpenBetItem_ReturnText').text() ),
 
-    
-    setInterval(function(){
-       
+        };
+        myBets.push(bet);
+        //console.log(bet);
+    });
+    GM_setValue('myBets', JSON.stringify(myBets) );
         
-       //Se "Live Now" não estiver selecionado Seleciona
-       if( !$('div.myb-OpenBetHeader_Button:contains(Live Now)').hasClass('myb-OpenBetHeader_ButtonSelected') ) $('div.myb-OpenBetHeader_Button:contains(Live Now)').click();
-       myBets=[];
-       $('.myb-OpenBetItem').each(function(i,e){
-           bet={
-               jogo:$(e).find('.myb-OpenBetParticipant_FixtureDescription').textOnly(),
-               mercado: $(e).find('.myb-OpenBetParticipant_MarketDescription').html(),
-               cashout:Boolean( $(e).find('span.cash-out').size() ),
-               score_atual: $(e).find('.myb-OpenBetScores_Score').text(),
-               score_inicial: $(e).find('.myb-OpenBetParticipant_HeaderTitle').text().split(')')[0].split('(')[1],  
-               stake: Number( $(e).find('.myb-OpenBetItem_StakeText').text() ),
-               toReturn: Number( $(e).find('.myb-OpenBetItem_ReturnText').text() ),
-               
-           };
-           myBets.push(bet);
-           //console.log(bet);
-       });
-       GM_setValue('myBets', JSON.stringify(myBets) );
-        
-    },500);
+   
     
     
     
@@ -67,9 +107,25 @@ bot.onMyBets=function(){
     
     
 };
+
+bot.onCouponAsianFull=function(){
+     //console.log('Tela Cupon  Asian Full');  
+};
+
+bot.onCouponAsianHalf=function(){
+    //console.log('Tela Cupon  Asian Half');  
+};
+
+
+
+
 
 bot.onCoupon=function(){
-    console.log('Tela Cupon');
+    //console.log('ok');
+   if ($('.ipe-EventViewTitle_Text').text()=='Asians In-Play') bot.onCouponAsianFull();
+   if ($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play') bot.onCouponAsianHalf();
+    
+    
 
 };
 
@@ -79,17 +135,30 @@ bot.onCoupon=function(){
 
 
 
-if ( window.location.hash.split(';')[0]=="#type=Coupon") {
-    bot.onCoupon();
 
-}
-if ( window.location.hash.split(';')[0]=="#type=MyBets") {
-    bot.onMyBets();
 
-}
 
+
+
+
+
+
+
+//Loop Principal
 setInterval(function(){
     bot.myBets = JSON.parse( GM_getValue("myBets", "[]") ); 
+    
+    if ( window.location.hash.split(';')[0]=="#type=Coupon") {
+        bot.onCoupon();
+    }
+    
+    if ( window.location.hash.split(';')[0]=="#type=MyBets") {
+        bot.onMyBets();
+    }
+
+   
 },500);
+
+
 
 
