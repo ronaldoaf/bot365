@@ -28,6 +28,9 @@ qb-QuickBetModule
 set_stake_show=$('section.qb-QuickBetModule ').hasClass('qb-QuickBetModule_SetStake')
 
 
+//Para dar OK depois da aposta feita
+$('.qb-MessageContainer_Indicator').click();
+
 
 normalRandomInt=function(min,max){
 
