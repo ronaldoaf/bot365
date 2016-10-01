@@ -1,5 +1,29 @@
 //section.qb-QuickBetModule 
+/*
+qb-QuickBetModule 
+	qb-QuickBetModule_BetSelected 
+	qb-QuickBetModule_HasValue 
+	qb-QuickBetModule_Placed 
+	
+	
+	qb-QuickBetModule qb-QuickBetModule_HasValue qb-QuickBetModule_BetSelected 
+	
+	
+	
+	qb-QuickBetModule 
+	      qb-QuickBetModule_BetSelected 
+		  qb-QuickBetModule_SetStake 
+		  qb-QuickBetModule_NoValue 
+		  
+.qb-QuickBetModule 
+	qb-QuickBetModule_BetSelected 
+	qb-QuickBetModule_ShowingKeypad 
+	qb-QuickBetModule_HasValue 
+	qb-QuickBetModule_StatusChanged 
+	qb-QuickBetModule_ChangeOdds 
 
+
+*/
 
 set_stake_show=$('section.qb-QuickBetModule ').hasClass('qb-QuickBetModule_SetStake')
 
