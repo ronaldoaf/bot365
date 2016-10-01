@@ -24,12 +24,21 @@ jQuery.fn.extend({
                .text();    //get the text of element
   }
 });
- 
+
+
 
 
 
 unsafeWindow.bot={}
 
+
+bot.seq=function(funcs){
+	var tempo=0;
+    $(funcs).each(function(i,e){
+		tempo+=e.t;
+	    setTimeout(e.f, tempo );
+	});
+};
 
 
 bot.jogoLive = function (home,away){
@@ -70,10 +79,31 @@ bot.jogoLive = function (home,away){
 
 
 
+bot.defs={
+    stake: 1.00
+};
 
 
+bot.setStake=function(valor){
+	var digita=function(digito){
+	    console.log(digito);
+		$('.qb-KeypadButton:contains('+digito+')').click();		
+	};
+	
+    ;
+	
 
-
+	
+	
+	var lista_seq=[{f: (function(){ $('.qb-DetailsContainer').click(); }), t:1000 }];
+	//Para cada do valor
+    $( String(valor).split('') ).each(function(i,digito){
+	    lista_seq.push({ f:(function(){ digita(digito); }), t:500 }  );
+	});
+	
+	//Digita na sequencia, com intervalo de tempo
+	bot.seq(lista_seq);
+};
 
 
 
