@@ -233,8 +233,14 @@ bot.onCoupon=function(){
 		   var home=$(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(0)').text();
 		   var away=$(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(1)').text();
 		   
+		   
+		   var apostando_agora=false;
+		   
 		   //Cada jogo do Ajax
 		   $(jogos).each(function(ii,jogo){
+			   
+			     if (apostando_agora) return;
+			   
                  //console.log([jogo.home, jogo.away, away] );
 		         if(  (jogo.home==home) && (jogo.away==away) ){
 				       //console.log(['bateu', home, away]);
@@ -251,13 +257,15 @@ bot.onCoupon=function(){
 					    //Aposta no Home
 					    if (
 							( jogo.ind>2.00 ) &&  
-							( jogo.ind2>1.00) && 
+							( jogo.ind2>0.00) && 
 							( ahSel(jogo_selecionado.selHome)>=0.0)  
 						){
 						     if ( !bot.jaFoiApostado(home,away) ){
 								 bot.apostar(jogo_selecionado.selHome);
 								 console.log(jogo);
 								 console.log('APOSTANDO NO HOME');
+								 
+								 apostando_agora=true;
 						     }
 						};
 			   
@@ -265,13 +273,15 @@ bot.onCoupon=function(){
                         //Aposta no Away
 					    if (
 							( jogo.ind<-2.00 ) &&  
-							( jogo.ind2<-1.00) && 
+							( jogo.ind2<0.00) && 
 							( ahSel(jogo_selecionado.selAway)>=0.0)  
 						){
 						     if (!bot.jaFoiApostado(home,away)){
 								 bot.apostar(jogo_selecionado.selAway);
 								 console.log(jogo);
 								 console.log('APOSTANDO NO AWAY');
+								 
+								 apostando_agora=true;
 						     }
 						};		   
 			             
@@ -288,7 +298,7 @@ bot.onCoupon=function(){
    
    var time_=Math.floor( (+new Date) /1000);
 
-	if ( !(time_ % 10) ) {
+	if ( !(time_ % 30) ) {
 	   //console.log('ok');
 	   GM_xmlhttpRequest({
 		   method: "GET",
@@ -304,9 +314,31 @@ bot.onCoupon=function(){
 	
 	//Se foi apostado com sucesso fecha o modula QB, clicando no OK
 	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_Placed') ) {
-         $('.qb-MessageContainer_Indicator').click(); 
-	}
+         setTimeout(function(){
+		     $('.qb-MessageContainer_Indicator').click(); 
+		 },2000);
+		 
+	};
 
+	
+	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_PlaceBetFailed') ) {
+         setTimeout(function(){
+		     $('.qb-MessageContainer_Indicator').click(); 
+		 },2000);
+		 
+	};
+
+	
+	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_ChangeSuspended') ) {
+         setTimeout(function(){
+		     $('.qb-MessageContainer_Indicator').click(); 
+		 },2000);
+		 
+	};
+	
+	
+	
+	
 };
 
 
