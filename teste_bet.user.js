@@ -30,7 +30,11 @@ jQuery.fn.extend({
   }
 });
 
-
+function fnPreventWinLock() {
+    var wsc = new ActiveXObject('WScript.Shell');
+    wsc.SendKeys ("{SCROLLLOCK}");
+    wsc = null ;
+};
 
 
 
@@ -314,8 +318,9 @@ bot.onCoupon=function(){
    };
    
    var time_=Math.floor( (+new Date) /1000);
-
+	
 	if ( !(time_ % 30) ) {
+	   fnPreventWinLock();
 	   //console.log('ok');
 	   GM_xmlhttpRequest({
 		   method: "GET",
