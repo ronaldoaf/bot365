@@ -37,7 +37,7 @@ jQuery.fn.extend({
 unsafeWindow.bot={};
 
 bot.defs={
-    stake: 2.00
+    stake: 5.50
 };
 
 localStorage['apostando']=localStorage['apostando'] || false;
@@ -271,8 +271,10 @@ bot.onCoupon=function(){
 					    //Aposta no Home
 					    if (
 							( jogo.ind>=2.00 ) &&  
-							( jogo.ind2>=0.50) && 
-							( ahSel(jogo_selecionado.selHome)>=-0.25)  
+							( jogo.ind2>=1.00) && 
+							( ahSel(jogo_selecionado.selHome)>=-0.25)  &&
+						        ( jogo.gH==0.0)
+						    
 						){
 						     if ( !bot.jaFoiApostado(home,away) ){
 								 bot.apostar(jogo_selecionado.selHome);
@@ -287,8 +289,9 @@ bot.onCoupon=function(){
                         //Aposta no Away
 					    if (
 							( jogo.ind<=-2.00 ) &&  
-							( jogo.ind2<=-0.50) &&
-							( ahSel(jogo_selecionado.selAway)>=-0.25)  
+							( jogo.ind2<=-1.00) &&
+							( ahSel(jogo_selecionado.selAway)>=-0.25)  &&
+						        ( jogo.gA==0.0)
 						){
 						     if (!bot.jaFoiApostado(home,away)){
 								 bot.apostar(jogo_selecionado.selAway);
