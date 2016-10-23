@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.3
+// @version      0.1.4
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -40,6 +40,9 @@ function fnPreventWinLock() {
 
 
 unsafeWindow.bot={};
+
+bot.tela='';
+
 
 bot.defs={
     stake: 5.50
@@ -229,7 +232,12 @@ bot.onCouponAsianHalf=function(){
 bot.onCoupon=function(){
     //console.log('ok');
    //if ($('.ipe-EventViewTitle_Text').text()=='Asians In-Play') bot.onCouponAsianFull();
-   //if ($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play') bot.onCouponAsianHalf();
+    if ($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play') {
+	    
+	    bot.onCouponAsianHalf();
+    };
+	
+   bot.tela='AsianHalf';
    
    var ahSel=function(selObj){
        var arr_ah=selObj.find('.ip-Participant_OppName').text().split(',');
@@ -320,7 +328,7 @@ bot.onCoupon=function(){
    
    var time_=Math.floor( (+new Date) /1000);
 	
-	if ( !(time_ % 30) ) {
+	if ( !(   (time_ % 30) + (bot.tela=='AsianHalf' ? 15 : 0)    ) ) {
 	   //fnPreventWinLock();
 	   //console.log('ok');
 	   GM_xmlhttpRequest({
@@ -337,6 +345,7 @@ bot.onCoupon=function(){
 	//console.log('xxxx');
 	if( $('.qb-QuickBetModule').hasClass('qb-QuickBetModule_BetSelected') ) {
 		bot.apostando=true;
+		
 	}
 	else{
 	    bot.apostando=false;
@@ -395,6 +404,8 @@ setInterval(function(){
     
     if ( window.location.hash.split(';')[0]=="#type=Coupon") {
         bot.onCoupon();
+	    
+	    
     }
     
     if ( window.location.hash.split(';')[0]=="#type=MyBets") {
