@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.2
+// @version      0.1.3
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -30,12 +30,13 @@ jQuery.fn.extend({
   }
 });
 
+/*
 function fnPreventWinLock() {
     var wsc = new ActiveXObject('WScript.Shell');
     wsc.SendKeys ("{SCROLLLOCK}");
     wsc = null ;
 };
-
+*/
 
 
 unsafeWindow.bot={};
@@ -320,7 +321,7 @@ bot.onCoupon=function(){
    var time_=Math.floor( (+new Date) /1000);
 	
 	if ( !(time_ % 30) ) {
-	   fnPreventWinLock();
+	   //fnPreventWinLock();
 	   //console.log('ok');
 	   GM_xmlhttpRequest({
 		   method: "GET",
