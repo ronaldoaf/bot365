@@ -32,10 +32,10 @@ jQuery.fn.extend({
 unsafeWindow.bot={};
 
 bot.defs={
-    stake: 1.00
+    stake: 2.00
 };
 
-
+localStorage['apostando']=localStorage['apostando'] || false;
 
 
 bot.seq=function(funcs){
@@ -113,6 +113,7 @@ bot.setStake=function(valor){
     $( String(valor).split('') ).each(function(i,digito){
 	    lista_seq.push({ f:(function(){ digita(digito); }), t:500 }  );
 	});
+	//lista_seq.push({ f:(function(){ digita('Done'); }), t:500 }  );
 	
 	//Digita na sequencia, com intervalo de tempo. Retorna o tempo total
 	return bot.seq(lista_seq);
@@ -122,7 +123,13 @@ bot.setStake=function(valor){
 
 
 bot.apostar=function(selObj){
-	 //Se já houve alguma aposta em andamento. NÃO APOSTA
+
+	
+	console.log('tentou apostar');
+	console.log(localStorage['apostando']);
+	if(bot.apostando) return -1;
+	
+	//Se já houve alguma aposta em andamento. NÃO APOSTA
      if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_BetSelected') ) return -1;
 	
 	
@@ -131,25 +138,26 @@ bot.apostar=function(selObj){
 	 if ( selObj.hasClass('ip-Participant_Suspended') ) return -1;
 	
 	
-	
+	 
 	 selObj.click();
-      
+     bot.apostando=true;
+	
+	 var tempo_para_placeBet=2000;
 	 //Se não tem valor setado OU o stake setado é diferente do definido
-	 if(  ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_NoValue') ) ||    (bot.stake!=Number($('.qb-StakeBox ').text()) ) ) {
+	 if(  ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_NoValue') ) ||    (bot.defs.stake!=Number($('.qb-StakeBox ').text()) ) ) {
          console.log('SETA STAKE');
 		 
-		 var tempo_para_placeBet=2000;
-		 setTimeout(function(){
+		 
+		 //setTimeout(function(){
               tempo_para_placeBet+=bot.setStake(bot.defs.stake);
-		 },1000);
+		 //},1000);	 
 		 
-		 setTimeout(function(){
-              $('.qb-PlaceBetButton').click();
-		 },tempo_para_placeBet);
-		 
-		 
-		 
-	 }
+	 };
+	setTimeout(function(){
+		$('.qb-PlaceBetButton').click();
+
+	},tempo_para_placeBet);
+	
 
 	 
 
@@ -247,18 +255,18 @@ bot.onCoupon=function(){
 					   jogo_selecionado=bot.jogoLive(home,away);
 					   
 					    if ($('.ipe-EventViewTitle_Text').text()=='Asians In-Play') {
-						       if (jogo_selecionado.tempo<70) return; 
+						      if (jogo_selecionado.tempo<70) return; 
 						}
 					    if ($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play'){
-						        if (jogo_selecionado.tempo<28) return; 
+						       if (jogo_selecionado.tempo<28) return; 
 						}
 					   
 					 
 					    //Aposta no Home
 					    if (
-							( jogo.ind>2.00 ) &&  
-							( jogo.ind2>0.00) && 
-							( ahSel(jogo_selecionado.selHome)>=0.0)  
+							( jogo.ind>=2.00 ) &&  
+							( jogo.ind2>=0.50) && 
+							( ahSel(jogo_selecionado.selHome)>=-0.25)  
 						){
 						     if ( !bot.jaFoiApostado(home,away) ){
 								 bot.apostar(jogo_selecionado.selHome);
@@ -272,9 +280,9 @@ bot.onCoupon=function(){
 			            
                         //Aposta no Away
 					    if (
-							( jogo.ind<-2.00 ) &&  
-							( jogo.ind2<0.00) && 
-							( ahSel(jogo_selecionado.selAway)>=0.0)  
+							( jogo.ind<=-2.00 ) &&  
+							( jogo.ind2<=-0.50) &&
+							( ahSel(jogo_selecionado.selAway)>=-0.25)  
 						){
 						     if (!bot.jaFoiApostado(home,away)){
 								 bot.apostar(jogo_selecionado.selAway);
@@ -309,8 +317,15 @@ bot.onCoupon=function(){
 		   onload: onLoadStats, 
 	   });  
    
-   }
+   };
    
+	//console.log('xxxx');
+	if( $('.qb-QuickBetModule').hasClass('qb-QuickBetModule_BetSelected') ) {
+		bot.apostando=true;
+	}
+	else{
+	    bot.apostando=false;
+	};
 	
 	//Se foi apostado com sucesso fecha o modula QB, clicando no OK
 	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_Placed') ) {
@@ -324,6 +339,9 @@ bot.onCoupon=function(){
 	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_PlaceBetFailed') ) {
          setTimeout(function(){
 		     $('.qb-MessageContainer_Indicator').click(); 
+			 setTimeout(function(){
+			     window.location.reload();
+			 },2000);
 		 },2000);
 		 
 	};
@@ -370,7 +388,5 @@ setInterval(function(){
 
    
 },1000);
-
-
 
 
