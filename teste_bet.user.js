@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.1
+// @version      0.1.2
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
