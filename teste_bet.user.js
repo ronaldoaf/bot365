@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.5
+// @version      0.1.6
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -275,7 +275,7 @@ bot.onCoupon=function(){
 				       //console.log(['bateu', home, away]);
 					   jogo_selecionado=bot.jogoLive(home,away);
 					   
-					    if ($('.ipe-EventViewTitle_Text').text()=='Asians In-Play') {
+					    if (   ( $('.ipe-EventViewTitle_Text').text()=='Asians In-Play') || ($('.ipe-EventViewTitle_Text').text()=="Soccer Asians In-Play") ) {
 						      if (jogo_selecionado.tempo<70) return; 
 						}
 					    if ($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play'){
