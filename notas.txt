@@ -1,0 +1,5 @@
+"C:\Program Files\Google\Chrome\Application\chrome.exe" https://mobile.365sport365.com/#type=Coupon;key=151014714C1_1_3; --auto-open-devtools-for-tabs
+
+https://mobile.365sport365.com/#type=Coupon;key=151014714C1_1_3;
+
+https://mobile.365sport365.com/#type=MyBets;key=;ip=0;lng=1
