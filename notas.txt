@@ -3,3 +3,8 @@
 https://mobile.365sport365.com/#type=Coupon;key=151014714C1_1_3;
 
 https://mobile.365sport365.com/#type=MyBets;key=;ip=0;lng=1
+
+
+
+
+https://sharecoding.wordpress.com/2013/03/25/install-xfce4-tigervnc-server-firefox-flash-on-centos-6-2/
