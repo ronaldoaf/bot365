@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.6
+// @version      0.1.7
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -331,8 +331,8 @@ bot.onCoupon=function(){
    var time_=Math.floor( (+new Date) /1000);
    
 
-	
-	
+	//Reinicia a cada 15 minutos
+	if ( !(time_ % (15*60*60)) ) {  window.location.reload(); };
 	
 	
 	if ( !(time_ % 30) ) {
