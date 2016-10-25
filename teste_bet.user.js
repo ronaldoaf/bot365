@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.7
+// @version      0.1.8
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -46,6 +46,8 @@ bot.defs={
 };
 
 bot.tempo_betslip_ativo=0;
+
+bot.tempo_pagina_ativa=0;
 
 localStorage['apostando']=localStorage['apostando'] || false;
 
@@ -229,6 +231,8 @@ bot.onCouponAsianHalf=function(){
 
 
 bot.onCoupon=function(){
+    
+    bot.tempo_pagina_ativa+=1;
     //console.log('ok');
    //if ($('.ipe-EventViewTitle_Text').text()=='Asians In-Play') bot.onCouponAsianFull();
    //if ($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play') bot.onCouponAsianHalf();
@@ -332,7 +336,7 @@ bot.onCoupon=function(){
    
 
 	//Reinicia a cada 15 minutos
-	if ( !(time_ % (15*60*60)) ) {  window.location.reload(); };
+	if  (bot.tempo_pagina_ativa>=15*60) window.location.reload();;
 	
 	
 	if ( !(time_ % 30) ) {
