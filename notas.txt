@@ -8,3 +8,15 @@ https://mobile.365sport365.com/#type=MyBets;key=;ip=0;lng=1
 
 
 https://sharecoding.wordpress.com/2013/03/25/install-xfce4-tigervnc-server-firefox-flash-on-centos-6-2/
+
+
+
+echo "C:\Program Files\Google\Chrome\Application\chrome.exe" --new-window  https://mobile.365sport365.com/#type=Coupon;key=151014714C1_1_3; --auto-open-devtools-for-tabs >tmp1.bat
+echo "C:\Program Files\Google\Chrome\Application\chrome.exe"  --new-window https://mobile.365sport365.com/#type=Coupon;key=151017012C1_1_3; --auto-open-devtools-for-tabs   >tmp2.bat
+echo "C:\Program Files\Google\Chrome\Application\chrome.exe" --new-window  https://mobile.365sport365.com/#type=MyBets;key=;ip=0;lng=1 --auto-open-devtools-for-tabs   >tmp3.bat
+
+Start tmp1.bat
+Start tmp2.bat
+Start tmp3.bat
+
+
