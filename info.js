@@ -63,7 +63,7 @@ normalRandomInt=function(min,max){
 	   }
 	}
 	
-	var r=Math.round(gaussian((max-min)/2.0, (max-min)/6.0)());
+	var r=Math.round(gaussian((max+min)/2.0, (max-min)/6.0)());
 	
 	if (r>max) r=max;
 	if (r<min) r=min;
