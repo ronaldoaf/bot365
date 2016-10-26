@@ -209,6 +209,7 @@ bot.onMyBets=function(){
         //console.log(bet);
     });
     GM_setValue('myBets', JSON.stringify(myBets) );
+    bot.myBets=myBets;
         
    
     
