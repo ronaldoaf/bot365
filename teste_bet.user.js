@@ -110,6 +110,7 @@ function fnPreventWinLock() {
 
 
 
+
 unsafeWindow.bot={};
 
 bot.defs={
@@ -166,8 +167,8 @@ bot.jogoLive = function (home,away){
 	});
 	jogo.tempo=Number($(jogo.market).find('.ipe-ParticipantCouponFixtureName_Timer').text().split(':')[0]);
 	
-	jogo.betHome=function(){ jogo.selHome.rclick();   };
-	jogo.betAway=function(){ jogo.selAway.rclick();   };
+	jogo.betHome=function(){ jogo.selHome.click();   };
+	jogo.betAway=function(){ jogo.selAway.click();   };
 	
 	return jogo;
 };
@@ -188,12 +189,12 @@ bot.jaFoiApostado=function(home,away){
 bot.setStake=function(valor){
 	var digita=function(digito){
 	    console.log(digito);
-		$('.qb-KeypadButton:contains('+digito+')').rclick();		
+		$('.qb-KeypadButton:contains('+digito+')').click();		
 	};
 
 	
 	
-	var lista_seq=[{f: (function(){ $('.qb-DetailsContainer').rclick(); }), t:1000 }];
+	var lista_seq=[{f: (function(){ $('.qb-DetailsContainer').click(); }), t:1000 }];
 	//Para cada do valor
     $( String(valor).split('') ).each(function(i,digito){
 	    lista_seq.push({ f:(function(){ digita(digito); }), t:500 }  );
@@ -224,7 +225,7 @@ bot.apostar=function(selObj){
 	
 	
 	 
-	 selObj.rclick();
+	 selObj.click();
      bot.apostando=true;
 	notificar();
 	
@@ -240,7 +241,7 @@ bot.apostar=function(selObj){
 		 
 	 };
 	setTimeout(function(){
-		$('.qb-PlaceBetButton').rclick();
+		$('.qb-PlaceBetButton').click();
 
 	},tempo_para_placeBet);
 	
@@ -261,7 +262,7 @@ bot.onMyBets=function(){
     //console.log('Tela MyBets');       
         
     //Se "Live Now" não estiver selecionado Seleciona
-    if( !$('div.myb-OpenBetHeader_Button:contains(Live Now)').hasClass('myb-OpenBetHeader_ButtonSelected') ) $('div.myb-OpenBetHeader_Button:contains(Live Now)').rclick();
+    if( !$('div.myb-OpenBetHeader_Button:contains(Live Now)').hasClass('myb-OpenBetHeader_ButtonSelected') ) $('div.myb-OpenBetHeader_Button:contains(Live Now)').click();
     myBets=[];
     $('.myb-OpenBetItem').each(function(i,e){
         bet={
@@ -436,7 +437,7 @@ bot.onCoupon=function(){
 	//Se foi apostado com sucesso fecha o modula QB, clicando no OK
 	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_Placed') ) {
          setTimeout(function(){
-		     $('.qb-MessageContainer_Indicator').rclick(); 
+		     $('.qb-MessageContainer_Indicator').click(); 
 		 },2000);
 		 
 	};
@@ -444,7 +445,7 @@ bot.onCoupon=function(){
 	
 	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_PlaceBetFailed') || (bot.tempo_betslip_ativo>=40)  ) {
          setTimeout(function(){
-		     $('.qb-MessageContainer_Indicator').rclick(); 
+		     $('.qb-MessageContainer_Indicator').click(); 
 			 setTimeout(function(){
 			     window.location.reload();
 			 },2000);
@@ -455,7 +456,7 @@ bot.onCoupon=function(){
 	
 	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_ChangeSuspended') ) {
          setTimeout(function(){
-		     $('.qb-MessageContainer_Indicator').rclick(); 
+		     $('.qb-MessageContainer_Indicator').click(); 
 		 },2000);
 		 
 	};
@@ -494,3 +495,4 @@ setInterval(function(){
 
    
 },1000);
+
