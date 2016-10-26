@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.15
+// @version      0.1.16
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -22,14 +22,86 @@ function notificar(){
 /* jshint -W097 */
 'use strict';
 jQuery.fn.extend({
+
+});
+
+jQuery.fn.extend({
   textOnly: function() {
     return this.clone()    //clone the element
                .children() //select all the children
                .remove()   //remove all the children
                .end()  //again go back to selected element
                .text();    //get the text of element
-  }
+  },
+  rclick: function() {
+
+		var normalRandomInt=function(min,max){
+
+			var gaussian=function(mean, stdev) {
+				var y2;
+				var use_last = false;
+				return function() {
+					var y1;
+					if(use_last) {
+					   y1 = y2;
+					   use_last = false;
+					}
+					else {
+						var x1, x2, w;
+						do {
+							 x1 = 2.0 * Math.random() - 1.0;
+							 x2 = 2.0 * Math.random() - 1.0;
+							 w  = x1 * x1 + x2 * x2;               
+						} while( w >= 1.0);
+						w = Math.sqrt((-2.0 * Math.log(w))/w);
+						y1 = x1 * w;
+						y2 = x2 * w;
+						use_last = true;
+				   }
+
+				   var retval = mean + stdev * y1;
+				   if(retval > 0) 
+					   return retval;
+				   return -retval;
+			   }
+			}
+			
+			var r=Math.round(gaussian((max+min)/2.0, (max-min)/6.0)());
+			
+			if (r>max) r=max;
+			if (r<min) r=min;
+			
+			return r;
+
+		}
+		var pos={
+			x1: $(this).offset().left,
+			y1: $(this).offset().top,
+			x2: $(this).offset().left + $(this).width(),
+			y2: $(this).offset().top + $(this).height()
+		};
+		var click=function(x,y){
+			var ev = document.createEvent("MouseEvent");
+			var el = document.elementFromPoint(x,y);
+			ev.initMouseEvent(
+				"click",
+				true /* bubble */, true /* cancelable */,
+				window, null,
+				x, y, 0, 0, /* coordinates */
+				false, false, false, false, /* modifier keys */
+				0 /*left*/, null
+			);
+			el.dispatchEvent(ev);
+		}
+		
+		//console.log([normalRandomInt(pos.x1,pos.x2), normalRandomInt(pos.y1,pos.y2)  ]);
+		click(normalRandomInt(pos.x1,pos.x2), normalRandomInt(pos.y1,pos.y2));
+	    
+    }
 });
+
+
+
 
 /*
 function fnPreventWinLock() {
