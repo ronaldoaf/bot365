@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.20
+// @version      0.1.19
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -32,6 +32,7 @@ jQuery.fn.extend({
   },
   rclick: function() {
 
+	  
 		var normalRandomInt=function(min,max){
 
 			var gaussian=function(mean, stdev) {
