@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.13
+// @version      0.1.14
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -334,14 +334,14 @@ bot.onCoupon=function(){
 	   
    };
    
-   var time_=Math.floor( (+new Date) /1000);
+   var time_=Math.floor( (+new Date) /1000) +($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play'?15:0);
    
 
    //Reinicia a cada 15 minutos
    if  (bot.tempo_pagina_ativa>=15*60) window.location.reload();;
 	
 	
-   if ( !((time_ % 30) +($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play'?15:0) ) ){
+   if ( !(time_ % 30) ){
 	   //fnPreventWinLock();
 	   //console.log('ok');
 	   GM_xmlhttpRequest({
