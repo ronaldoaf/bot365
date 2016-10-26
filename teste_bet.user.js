@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.9
+// @version      0.1.10
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -341,7 +341,7 @@ bot.onCoupon=function(){
 	if  (bot.tempo_pagina_ativa>=15*60) window.location.reload();;
 	
 	
-	if ( !(time_ % 30) ) {
+	if ( !((time_ % 30)) +($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play')?15:0 ) {
 	   //fnPreventWinLock();
 	   //console.log('ok');
 	   GM_xmlhttpRequest({
