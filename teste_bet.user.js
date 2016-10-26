@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.17
+// @version      0.1.18
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -21,9 +21,6 @@ function notificar(){
 // ==/UserScript==
 /* jshint -W097 */
 'use strict';
-jQuery.fn.extend({
-
-});
 
 jQuery.fn.extend({
   textOnly: function() {
