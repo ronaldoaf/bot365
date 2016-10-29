@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.19
+// @version      0.1.21
 // @description  try to take over the world!
 // @author       Ronaldo
+// @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
 // @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @match        https://mobile.365sport365.com/*
 // @match        https://mobile.bet365.com/*
@@ -17,14 +18,26 @@ function notificar(){
 };
 
 function login(){
-	if ($('.mmhdr-UserInfo_UserName').text()==''){
-		$('.hm-WideHeaderPod_Login').click();
-		$('input#PopUp_UserName').val('ronaldoaf');
-		$('input#PopUp_Password').val('rr842135');
-		$('input#PopUp_KML').val('on');
-		$('input#LogInPopUpBttn').click();
+	if($('.mmhdr-UserInfo_UserName').text()==''){
+		$('.hm-HeaderLinkLogin_Launcher').click();
+		$('#PopUp_UserName').val('ronaldoaf');
+		$('#PopUp_Password').val('rr842135');
+		$('#PopUp_KML').val('on');
+		$('#LogInPopUpBttn').click();
 	}
 };
+
+function alertaErro(mensagem){
+	GM_xmlhttpRequest({
+		   method: "POST",
+		   url: "http://aposte.me/live/erro_bot.php?mensagem="+mensagem,
+		   headers: { 
+			   'Accept': "*/*; charset=utf-8",
+		   },
+		   onload: function(res){  console.log(res.responseText) } 
+	   });  
+};
+
 
 
 //comentário
@@ -293,9 +306,15 @@ bot.onMyBets=function(){
     });
     GM_setValue('myBets', JSON.stringify(myBets) );
     bot.myBets=myBets;
-        
-   
-    
+	
+   //Verifica e alerta erro de apostas duplicadas     
+   var array=[]
+   _.each(bot.myBets, function(e){	   array.push(e.jogo+e.mercado)   });	
+    if(_.size(_.filter(array, function (value, index, iteratee) {
+		return _.includes(iteratee, value, index + 1);
+	}))) {
+		alertaErro('Apostas duplicadas');
+	};
     
     
     
@@ -495,6 +514,8 @@ bot.onCoupon=function(){
 
 //Loop Principal
 setInterval(function(){
+	
+	
     bot.myBets = JSON.parse( GM_getValue("myBets", "[]") ); 
     
     if ( window.location.hash.split(';')[0]=="#type=Coupon") {
@@ -505,8 +526,6 @@ setInterval(function(){
         bot.onMyBets();
     }
 
-   //Checa se esta logado, senão loga	
-    login();
    
 },1000);
 
