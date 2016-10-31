@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.21
+// @version      0.1.22
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -284,6 +284,11 @@ bot.apostar=function(selObj){
 
 
 bot.onMyBets=function(){
+    
+    var time_=Math.floor( (+new Date) /1000)+8;
+    if ( !(time_ % 60) ) window.location.reload();
+    
+    
     //console.log('Tela MyBets');       
         
     //Se "Live Now" não estiver selecionado Seleciona
@@ -440,7 +445,7 @@ bot.onCoupon=function(){
    
 
    //Reinicia a cada 15 minutos
-   if  (bot.tempo_pagina_ativa>=15*60) window.location.reload();;
+   if  (bot.tempo_pagina_ativa>=15*60) window.location.reload();
 	
 	
    if ( !(time_ % 30) ){
