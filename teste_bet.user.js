@@ -465,7 +465,7 @@ bot.onCoupon=function(){
 		   onload: function(){
              $.get('https://mobile.365sport365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
                 bot.textMyBets=data;
-                onLoadStats;
+                onLoadStats();
              });             
            }
 	   });  
