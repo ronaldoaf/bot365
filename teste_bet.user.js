@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.22
+// @version      0.1.23
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -199,7 +199,7 @@ bot.jogoLive = function (home,away){
 };
 
 
-
+/*
 bot.jaFoiApostado=function(home,away){
 	 var saida=false;
      $(bot.myBets).each(function(i,e){
@@ -208,8 +208,11 @@ bot.jaFoiApostado=function(home,away){
 	
 	return saida;
 };
+*/
 
-
+bot.jaFoiApostado=function(home,away){
+    return bot.textMyBets.includes(home+' v '+away);
+};
 
 bot.setStake=function(valor){
 	var digita=function(digito){
@@ -364,6 +367,8 @@ bot.onCoupon=function(){
 	
 	
    var onLoadStats=function(response){
+       
+       
        //console.log(response);
 	   var jogos=eval(response.responseText);
 	   console.log(jogos);
@@ -457,7 +462,12 @@ bot.onCoupon=function(){
 		   headers: { 
 			   'Accept': "*/*; charset=utf-8",
 		   },
-		   onload: onLoadStats, 
+		   onload: function(){
+             $.get('https://mobile.365sport365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
+                bot.textMyBets=data;
+                onLoadStats();
+             });             
+           }
 	   });  
    
    };
@@ -533,4 +543,3 @@ setInterval(function(){
 
    
 },1000);
-
