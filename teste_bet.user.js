@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.25
+// @version      0.1.26
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -141,7 +141,7 @@ function fnPreventWinLock() {
 unsafeWindow.bot={};
 
 bot.defs={
-    stake: 5.50
+    stake: 20.50
 };
 
 bot.tempo_betslip_ativo=0;
