@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.27
+// @version      0.1.28
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -109,7 +109,7 @@ unsafeWindow.jQuery.fn.extend({
 			ev.initMouseEvent(
 				"click",
 				true /* bubble */, true /* cancelable */,
-				window, null,
+				unsafeWindow, null,
 				x, y, 0, 0, /* coordinates */
 				false, false, false, false, /* modifier keys */
 				0 /*left*/, null
@@ -545,5 +545,9 @@ setInterval(function(){
     }
     
     login();
+    //if(Number($('#betslipBarEnhancedSelectionCount').text())>=2) $('#betslipBarEnhanced').rclick();
+
+    //if( $('#betSlipOverlay').size() ) $('.removeAll').rclick();
+    console.log( $('#betSlipOverlay').size() );
    
 },1000);
