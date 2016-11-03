@@ -5,7 +5,6 @@
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
-// @require       http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @match        https://mobile.365sport365.com/*
 // @match        https://mobile.bet365.com/*
 // @grant        GM_xmlhttpRequest
