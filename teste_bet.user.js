@@ -47,7 +47,7 @@ function alertaErro(mensagem){
 /* jshint -W097 */
 'use strict';
 
-jQuery.fn.extend({
+window.$.fn.extend({
   textOnly: function() {
     return this.clone()    //clone the element
                .children() //select all the children
