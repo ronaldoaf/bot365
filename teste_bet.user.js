@@ -543,6 +543,7 @@ setInterval(function(){
     if ( window.location.hash.split(';')[0]=="#type=MyBets") {
         bot.onMyBets();
     }
-
+    
+    login();
    
 },1000);
