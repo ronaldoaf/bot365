@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.32
+// @version      0.1.33
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -276,12 +276,12 @@ bot.apostar=function(selObj){
 	
 	 var tempo_para_placeBet=2000;
 	 //Se não tem valor setado OU o stake setado é diferente do definido
-	 if(  ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_NoValue') ) ||    (bot.defs.stake!=Number($('.qb-StakeBox ').text()) ) ) {
+	 if(  ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_NoValue') ) ||    (bot.stake()!=Number($('.qb-StakeBox ').text()) ) ) {
          console.log('SETA STAKE');
 		 
 		 
 		 //setTimeout(function(){
-              tempo_para_placeBet+=bot.setStake(bot.defs.stake);
+              tempo_para_placeBet+=bot.setStake(bot.stake());
 		 //},1000);	 
 		 
 	 };
