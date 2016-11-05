@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.30
+// @version      0.1.32
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -27,6 +27,9 @@ function login(){
 		$('#LogInPopUpBttn').click();
 	}
 };
+
+
+
 
 function alertaErro(mensagem){
 	GM_xmlhttpRequest({
@@ -147,6 +150,18 @@ bot.defs={
 bot.tempo_betslip_ativo=0;
 
 bot.tempo_pagina_ativa=0;
+
+bot.stake=function(){
+    var soma=0;
+	$( bot.textMyBets.match(/VA=[0-9\.]+/g) ).each(function(i,e){
+		soma+=Number(e.split('=')[1]);
+	});
+
+	soma+=bot.balance; 
+
+	return (Math.floor(soma*0.05)+0.5);
+};
+
 
 localStorage['apostando']=localStorage['apostando'] || false;
 
@@ -469,7 +484,11 @@ bot.onCoupon=function(){
              $.get('https://mobile.365sport365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
                 bot.textMyBets=data;
                 onLoadStats(response);
-             });             
+             });    
+               
+            $.get('https://mobile.365sport365.com/Controls/BetSlip/GetBalance.aspx',function(data){ 
+                   bot.balance=Number(data.balance); 
+               });
            }
 	   });  
    
