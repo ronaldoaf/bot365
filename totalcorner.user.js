@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         Extrai Stats Totalcorner
+// @namespace    http://aposte.me
+// @version      0.1
+// @description  Extrai Stats Totalcorner
+// @author       Ronlado Araújo de Farias
+// @match        http://www.totalcorner.com/match/today
+// @grant        GM_xmlhttpRequest
+// ==/UserScript==
+
+
 var TABELA_JOGOS={};
 $('[data-match_id]').each(function(i,e){  
 	TABELA_JOGOS[$(e).attr('data-match_id')]={
@@ -33,8 +44,15 @@ $( document ).ajaxComplete(function( event, res, settings) {
 	});
 	
 	
-	$.post('http://aposte.me/live/atualiza_live_bet365_REST.php', JSON.stringify(DATA), function(data) {console.log(data) });
-	
+	//$.post('http://aposte.me/live/atualiza_live_bet365_REST.php', JSON.stringify(DATA), function(data) {console.log(data) });
+	GM_xmlhttpRequest({
+        method: "POST",
+        url: "http://aposte.me/live/atualiza_live_bet365_REST.php",
+        data:  JSON.stringify(DATA),
+        onload: function(res){
+            //console.log(res);
+        }
+    });
+    
+    
 });
-
-
