@@ -50,7 +50,7 @@ $( document ).ajaxComplete(function( event, res, settings) {
         url: "http://aposte.me/live/atualiza_live_bet365_REST.php",
         data:  JSON.stringify(DATA),
         onload: function(res){
-            //console.log(res);
+            console.log(res.responseText);
         }
     });
     
