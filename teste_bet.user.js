@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.34
+// @version      0.1.35
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -420,6 +420,7 @@ bot.onCoupon=function(){
 					 
 					    //Aposta no Home
 					    if (
+							 ( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	( ahSel(jogo_selecionado.selHome)==-0.5)  &&  ( jogo.gH<=1) )  ||
 							 ( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( ahSel(jogo_selecionado.selHome)==-0.25)  &&  ( jogo.gH==0.0) )  ||
 							 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=-1.00) && 	( ahSel(jogo_selecionado.selHome)>=0)  &&  ( jogo.gH==0.0) ) 
 						){
@@ -435,6 +436,7 @@ bot.onCoupon=function(){
 			            
                         //Aposta no Away
 					    if (
+							 ( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.50) && 	( ahSel(jogo_selecionado.selAway)==-0.5)  &&  ( jogo.gA<=0.0) )  ||
 							 ( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( ahSel(jogo_selecionado.selAway)==-0.25)  &&  ( jogo.gA==0.0) )  ||
 							 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( ahSel(jogo_selecionado.selAway)>=0)  &&  ( jogo.gA==0.0) ) 
 						){
