@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.35
+// @version      0.1.36
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -366,6 +366,7 @@ bot.onCoupon=function(){
    //if ($('.ipe-EventViewTitle_Text').text()=='Asians In-Play') bot.onCouponAsianFull();
    //if ($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play') bot.onCouponAsianHalf();
    
+   $('.ipe-Market').has('.Hidden').each(function(i,e){ $(e).click() } );
 	
    //Conta o tempo que o betslipe está ativo
    if( $('.qb-QuickBetModule').hasClass('qb-QuickBetModule_BetSelected') ) {
