@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.1.1
+// @version      0.1.2
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        http://www.totalcorner.com/match/today
@@ -9,16 +9,20 @@
 // ==/UserScript==
 
 
-var TABELA_JOGOS={};
-$('[data-match_id]').each(function(i,e){  
-	TABELA_JOGOS[$(e).attr('data-match_id')]={
-			home: $(e).find('.match_home a').text(),
-			away: $(e).find('.match_away a').text()
-	};			
-});
+
 
 $( document ).ajaxComplete(function( event, res, settings) {
 	if (!settings.url.includes('api_ongoing_matches') ) return;
+	
+	var TABELA_JOGOS={};
+	$('[data-match_id]').each(function(i,e){  
+		TABELA_JOGOS[$(e).attr('data-match_id')]={
+			home: $(e).find('.match_home a').text(),
+			away: $(e).find('.match_away a').text()
+		};			
+	});
+	
+	
 	
 	var DATA=[];
     $(res.responseJSON).each(function(i,j){
