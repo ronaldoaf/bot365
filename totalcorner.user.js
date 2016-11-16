@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.1.2
+// @version      0.1.3
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        http://www.totalcorner.com/match/today
@@ -28,22 +28,25 @@ $( document ).ajaxComplete(function( event, res, settings) {
     $(res.responseJSON).each(function(i,j){
 		
 		HA=$(j.han.split(',')).size()==2 ? (Number(j.han.split(',')[0]) + Number(j.han.split(',')[1]))/2.0 : Number(j.han.split(',')[0]);
-		DATA.push({
-				id:   j.id,
-				time_:j.sta,
-				home: TABELA_JOGOS[j.id].home,
-				away: TABELA_JOGOS[j.id].away,
-				HA:   HA,
-				gH:   Number(j.hg),
-				gA:   Number(j.ag),
-				daH:  Number(j.hda), 
-				daA:  Number(j.ada), 
-				soH:  Number(j.ho), 
-				soA:  Number(j.ao), 
-				sfH:  Number(j.hf),
-				sfA:  Number(j.af)
-		});
-		
+		try{
+			DATA.push({
+					id:   j.id,
+					time_:j.sta,
+					home: TABELA_JOGOS[j.id].home,
+					away: TABELA_JOGOS[j.id].away,
+					HA:   HA,
+					gH:   Number(j.hg),
+					gA:   Number(j.ag),
+					daH:  Number(j.hda), 
+					daA:  Number(j.ada), 
+					soH:  Number(j.ho), 
+					soA:  Number(j.ao), 
+					sfH:  Number(j.hf),
+					sfA:  Number(j.af)
+			});
+		} catch(e){
+			window.location.reload();
+		}
 		
 	});
 	
