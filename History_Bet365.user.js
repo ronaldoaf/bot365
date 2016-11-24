@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         History Bet365
 // @namespace    http://aposte.me
-// @version      0.3
+// @version      0.4
 // @description  Salva o Historico
 // @author       Ronaldo Araújo de Farias
 // @require      https://cdnjs.cloudflare.com/ajax/libs/taffydb/2.7.3/taffy-min.js
 // @match        https://members.365sport365.com/MEMBERS/History/SportsHistory/HistorySearch/*
-// @match        https://mobile.365sport365.com/default.aspx*
+// @match        https://mobile.365sport365.com/*
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
@@ -111,9 +111,7 @@ if (location.host=='members.365sport365.com'){
 
 
 if (location.host=='mobile.365sport365.com'){
-    $('body').html('<center><button id="history">HISTORY</button></center>' + $('body').html());
-    $('#history').click(function(){
-        
-    });
+    $('body').html($('body').html() + '<center><a href="http://aposte.me/live/bet_history_last.php" target="_blank"  style="font-size:36px;">HISTORY</a></center>');
+
 }
 
