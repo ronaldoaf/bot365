@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         History Bet365
 // @namespace    http://aposte.me
-// @version      0.4
+// @version      0.5
 // @description  Salva o Historico
 // @author       Ronaldo Araújo de Farias
 // @require      https://cdnjs.cloudflare.com/ajax/libs/taffydb/2.7.3/taffy-min.js
@@ -35,7 +35,12 @@ function pegaDados(){
 
             obj.selecao=$(res).find('.bet-confirmation-table-body-selections').text().trim();
             var selecao=obj.selecao;
-            var evento=$(res).find('.bet-confirmation-table-body-event').html().split('<br>');
+            try {
+                var evento=$(res).find('.bet-confirmation-table-body-event').html().split('<br>');
+            } catch(err) {
+                 var evento=[$(res).find('.bet-confirmation-table-body-event').html(),''];
+            }
+            
             obj.jogo=evento[0].trim();
             obj.mercado=evento[1].trim();
             obj.odds=Number($(res).find('.bet-confirmation-table-body-odds').text().trim());
@@ -82,7 +87,8 @@ if (location.host=='members.365sport365.com'){
     var inter=setInterval(function(){  
         if( $('.bet365-rate-limiting-message').css('display')=='block') tempo_espera+=1;
         if (tempo_espera>=30) tempo_espera=0;
-        if (($('#bet365-show-more-button').css('display')!=='none')&&(tempo_espera==0))  $('#bet365-show-more-button').click();
+       // if (($('#bet365-show-more-button').css('display')!=='none')&&(tempo_espera==0))  $('#bet365-show-more-button').click();
+         if (($('#bet365-show-more-button').css('display')!=='none')&& 1 )  $('#bet365-show-more-button').click();
         
         if ($('#bet365-show-more-button').css('display')=='none') {
             clearInterval(inter);
