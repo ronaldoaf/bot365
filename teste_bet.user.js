@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.37
+// @version      0.1.38
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -415,7 +415,7 @@ bot.onCoupon=function(){
 						      if (jogo_selecionado.tempo<70) return; 
 						}
 					    if ($('.ipe-EventViewTitle_Text').text()=='1st Half Asians In-Play'){
-						       if (jogo_selecionado.tempo<28) return; 
+						       if (jogo_selecionado.tempo<25) return; 
 						}
 					   
 					 
