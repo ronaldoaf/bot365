@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.38
+// @version      0.1.39
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -253,7 +253,7 @@ bot.setStake=function(valor){
 
 
 
-bot.apostar=function(selObj){
+bot.apostar=function(selObj, tamanho_stake=0){
 
 	
 	console.log('tentou apostar');
@@ -281,7 +281,7 @@ bot.apostar=function(selObj){
 		 
 		 
 		 //setTimeout(function(){
-              tempo_para_placeBet+=bot.setStake(bot.stake());
+              tempo_para_placeBet+=bot.setStake(tamanho_stake==0 ? bot.stake() : tamanho_stake );
 		 //},1000);	 
 		 
 	 };
@@ -426,7 +426,7 @@ bot.onCoupon=function(){
 							 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=-1.00) && 	( ahSel(jogo_selecionado.selHome)>=0)  &&  ( jogo.gH==0.0) ) 
 						){
 						     if ( !bot.jaFoiApostado(home,away) ){
-								 bot.apostar(jogo_selecionado.selHome);
+								 bot.apostar(jogo_selecionado.selHome, ahSel(jogo_selecionado.selHome)<0.0 ? 1.5 : 0 );
 								 console.log(jogo);
 								 console.log('APOSTANDO NO HOME');
 								 
@@ -442,7 +442,7 @@ bot.onCoupon=function(){
 							 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( ahSel(jogo_selecionado.selAway)>=0)  &&  ( jogo.gA==0.0) ) 
 						){
 						     if (!bot.jaFoiApostado(home,away)){
-								 bot.apostar(jogo_selecionado.selAway);
+								 bot.apostar(jogo_selecionado.selAway, ahSel(jogo_selecionado.selAway)<0.0 ? 1.5 : 0 );
 								 console.log(jogo);
 								 console.log('APOSTANDO NO AWAY');
 								 
