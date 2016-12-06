@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.40
+// @version      0.1.40.1
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -372,14 +372,21 @@ bot.onCouponAsianHalf=function(){
 
 
 bot.onCoupon=function(){
-    
-    //Reboot em caso de duplicado
-    $($.unique(bot.textMyBets.match(/[a-zA-Z \-\']* v [a-zA-Z \-\']*/g) || [])).each(function(i,e){ 
-        var re = new RegExp(e, 'g');
-        if( bot.textMyBets.match(re).length>=2 ) bot.reboot();
-    });
-    
-    
+    try {
+        
+        $($.unique(bot.textMyBets.match(/[a-zA-Z \-\']* v [a-zA-Z \-\']*/g)) ).each(function(i,e){
+            var re = new RegExp(e, 'g');
+            if (  bot.textMyBets.match(re).length>=2 ) bot.reboot();
+        });
+        //Reboot em caso de duplicado
+        //$($.unique(bot.textMyBets.match(/[a-zA-Z \-\']* v [a-zA-Z \-\']*/g) )).each(function(i,e){ 
+       //     var re = new RegExp(e, 'g');
+       //     if( bot.textMyBets.match(re).length>=2 ) conosle.log('DUPLICADO !!!!!!!!');
+       // });
+    }
+    catch(err) {
+        console.log('erro !');
+    }    
     
     bot.tempo_pagina_ativa+=1;
     //console.log('ok');
