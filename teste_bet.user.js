@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.40.1
+// @version      0.1.41
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -164,19 +164,7 @@ bot.stake=function(){
 
 
 localStorage['apostando']=localStorage['apostando'] || false;
-localStorage['reboot'] = localStorage['reboot'] || (+new Date());
 
-bot.reboot=function(){
-    if ( (+new Date())-Number(localStorage['apostando'])  >=30*60*1000 ){
-       localStorage['reboot']=(+new Date());
-        
-	   GM_xmlhttpRequest({
-		   method: "GET",
-		   url: "http://181.41.212.49/reboot.php"
-	   }); 
-    }
-
-};
 
 bot.seq=function(funcs){
 	var tempo=0;
@@ -372,21 +360,6 @@ bot.onCouponAsianHalf=function(){
 
 
 bot.onCoupon=function(){
-    try {
-        
-        $($.unique(bot.textMyBets.match(/[a-zA-Z \-\']* v [a-zA-Z \-\']*/g)) ).each(function(i,e){
-            var re = new RegExp(e, 'g');
-            if (  bot.textMyBets.match(re).length>=2 ) bot.reboot();
-        });
-        //Reboot em caso de duplicado
-        //$($.unique(bot.textMyBets.match(/[a-zA-Z \-\']* v [a-zA-Z \-\']*/g) )).each(function(i,e){ 
-       //     var re = new RegExp(e, 'g');
-       //     if( bot.textMyBets.match(re).length>=2 ) conosle.log('DUPLICADO !!!!!!!!');
-       // });
-    }
-    catch(err) {
-        console.log('erro !');
-    }    
     
     bot.tempo_pagina_ativa+=1;
     //console.log('ok');
@@ -531,6 +504,9 @@ bot.onCoupon=function(){
 	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_Placed') ) {
          setTimeout(function(){
 		     $('.qb-MessageContainer_Indicator').click(); 
+		     setTimeout(function(){
+		     	window.location.reload();
+		     },1000 );
 		 },2000);
 		 
 	};
