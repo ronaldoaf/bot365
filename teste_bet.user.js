@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.41
+// @version      0.1.42
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -504,9 +504,9 @@ bot.onCoupon=function(){
 	if ($('.qb-QuickBetModule').hasClass('qb-QuickBetModule_Placed') ) {
          setTimeout(function(){
 		     $('.qb-MessageContainer_Indicator').click(); 
-		     setTimeout(function(){
-		     	window.location.reload();
-		     },1000 );
+             setTimeout(function(){
+                window.location.reload();
+             },1000);
 		 },2000);
 		 
 	};
