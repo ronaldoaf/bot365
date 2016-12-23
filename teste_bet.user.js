@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.43.5
+// @version      0.1.44
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -164,7 +164,6 @@ bot.stake=function(){
 
 
 localStorage['apostando']=localStorage['apostando'] || false;
-localStorage.betslip_clicado=false
 
 
 bot.seq=function(funcs){
@@ -566,15 +565,14 @@ unsafeWindow.setInterval(function(){
     }
     
     login();
-    if(Number($('#betslipBarEnhancedSelectionCount').text())>=2) {
-		if ( localStorage.betslip_clicado==false ) {
-			localStorage.betslip_clicado=true;
-			unsafeWindow.setTimeout(function(){
-				$('#betslipBarEnhanced').rclick();
-			},5000);
-		}
-	}
+    //if( (Number($('#betslipBarEnhancedSelectionCount').text())>=2) && $('#betslipBarEnhanced').hasClass('showingBetSlipEnhancedBar'))  $('#betslipBarEnhanced').rclick();
+	 if( $('#betslipBarEnhanced').hasClass('showingBetSlipEnhancedBar'))  $('#betslipBarEnhanced').click();
 
+    if( $('.betReceipt').size()>0 ) {
+		$('button:contains(Continue)').click();
+		window.location.reload();
+	}
+    if( !$('.acceptChanges').hasClass('hidden') ) $('button:contains(Accept)').rclick(); 
    
 },1000);
 
@@ -582,5 +580,21 @@ unsafeWindow.setInterval(function(){
 
 
 $('body').on('DOMNodeInserted', '#betSlipOverlay.opaque', function () {
-      unsafeWindow.setTimeout( function(){ $('li.betslipHeader a.removeAll').click()},5000);
+	unsafeWindow.setTimeout( function(){ 
+		
+		//Se tiver 2 ou mais apostas Limpa
+		if(Number($('#BetSlipCount span').text())>=2) $('.removeAll').rclick();
+		
+		//Se tiver 1 aposta então placeBet
+		if(Number($('#BetSlipCount span').text())==1){
+          $('.stk').val('1.50');
+		  	
+		  setTimeout(function(){
+               $('.placeBet').rclick();
+		  },1000);
+		
+		}
+		
+		
+	},5000);
 });
