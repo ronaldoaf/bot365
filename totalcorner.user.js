@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.1.6
+// @version      0.1.6.1
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        http://www.totalcorner.com/match/today
@@ -17,6 +17,9 @@ $(document).ready(function(){
 		if(localStorage['reiniciado']==false) {
 			localStorage['reiniciado']=true;
 			window.location.reload();			
+		}
+		else{
+			localStorage['reiniciado']=false;			
 		}
 	},30000);
 	
