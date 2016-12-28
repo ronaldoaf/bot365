@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.1.6.2
+// @version      0.1.7
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        http://www.totalcorner.com/match/today
@@ -10,18 +10,14 @@
 
 
 $(document).ready(function(){
+	var tempo_sem_atualizacao=0;
 	
-	//Reinicia a pagina 30 segundos depois ser carregada
-	localStorage['reiniciado'] = localStorage['reiniciado'] || false;
-	setTimeout(function(){
-		if(JSON.parse(localStorage['reiniciado'])==false) {
-			localStorage['reiniciado']=true;
-			window.location.reload();			
-		}
-		else{
-			localStorage['reiniciado']=false;			
-		}
-	},30000);
+	setInterval(function(){
+		if( $('.minutes_postfix').size()>0 ) tempo_sem_atualizacao+=1;
+		if (tempo_sem_atualizacao>=30) window.location.reload();		
+	},1000);
+	
+	
 	
 	//Se não estiver aparecendo a columa "on target", define as colunas corretas
     if( $('th:contains(on target)').size()<1 ) {
@@ -32,6 +28,8 @@ $(document).ready(function(){
 	
 	$( document ).ajaxComplete(function( event, res, settings) {
 		if (!settings.url.includes('api_ongoing_matches') ) return;
+		
+		tempo_sem_atualizacao=0;
 		
 		var TABELA_JOGOS={};
 		$('[data-match_id]').each(function(i,e){  
