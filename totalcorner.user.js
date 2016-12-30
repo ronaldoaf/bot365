@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.1.8
+// @version      0.1.8.1
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        http://www.totalcorner.com/match/today
@@ -21,7 +21,7 @@ $(document).ready(function(){
 		else{
 			localStorage['reiniciado']=false;			
 		}
-	},30000);
+	},60000);
 	
 	//Se não estiver aparecendo a columa "on target", define as colunas corretas
     if( $('th:contains(on target)').size()<1 ) {
