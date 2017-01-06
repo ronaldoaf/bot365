@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.44
+// @version      0.1.45
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -287,6 +287,8 @@ bot.apostar=function(selObj, tamanho_stake=0){
 	 };
 	setTimeout(function(){
 		$('.qb-PlaceBetButton').click();
+		bot.anotar();
+		
 
 	},tempo_para_placeBet);
 	
@@ -358,6 +360,16 @@ bot.onCouponAsianHalf=function(){
 
 
 
+bot.anotar=function(){
+	GM_xmlhttpRequest({
+		method: "POST",
+		url: "http://aposte.me/live/notas.php",
+		data:  bot.textMyBets,
+		onload: function(res){
+			console.log(res.responseText);
+		}
+	});
+};
 
 bot.onCoupon=function(){
     
@@ -587,11 +599,12 @@ $('body').on('DOMNodeInserted', '#betSlipOverlay.opaque', function () {
 		
 		//Se tiver 1 aposta então placeBet
 		if(Number($('#BetSlipCount span').text())==1){
-          $('.stk').val('1.50');
-		  	
-		  setTimeout(function(){
+           $('.stk').val('1.50');
+		   bot.anotar();
+		
+		    setTimeout(function(){
                $('.placeBet').rclick();
-		  },1000);
+		    },1000);
 		
 		}
 		
