@@ -70,7 +70,11 @@ $(document).ready(function(){
 		});
 		
 		
-		//$.post('http://aposte.me/live/atualiza_live_bet365_REST.php', JSON.stringify(DATA), function(data) {console.log(data) });
+		
+		
+		$.post('http://aposte.me/live/atualiza_live_bet365_REST.php', JSON.stringify(DATA), function(data) {console.log(data) });
+		
+		/*
 		GM_xmlhttpRequest({
 			method: "POST",
 			url: "http://aposte.me/live/atualiza_live_bet365_REST.php",
@@ -79,7 +83,7 @@ $(document).ready(function(){
 				console.log(res.responseText);
 			}
 		});
-		
+		*/
 		
 	});
 });
