@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.46.4
+// @version      0.1.46.5
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -365,11 +365,11 @@ bot.onCoupon=function(){
 					    if (
 							 ( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	( ahSel(jogo_selecionado.selHome)==-0.5)  &&  ( jogo.gH<=1) )  ||
 							 ( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( ahSel(jogo_selecionado.selHome)==-0.25)  &&  ( jogo.gH==0.0) )  ||
-							 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=-1.00) && 	( ahSel(jogo_selecionado.selHome)>=0)  &&  ( jogo.gH==0.0) ) 
+							 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( ahSel(jogo_selecionado.selHome)>=0)  &&  ( jogo.gH==0.0) ) 
 						){
 						     if (bot.jaFoiApostado(jogo.home,jogo.away)==false){
 								 //bot.anotar(home+' v '+away+'<<<>>>'+jogo_selecionado.tempo+' '+jogo.ind + ' '+jogo.ind2+'<<<>>>'+bot.textMyBets);
-								 bot.anotar(JSON.stringify(jogo)+'<<<>>>'+bot.textMyBets );
+								 bot.anotar(JSON.stringify(jogo)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
 								 bot.apostar(jogo_selecionado.selHome, ahSel(jogo_selecionado.selHome)<0.0 ? 1.5 : 0 );
 								 console.log(jogo);
 								 console.log('APOSTANDO NO HOME');
@@ -381,13 +381,13 @@ bot.onCoupon=function(){
 			            
                         //Aposta no Away
 					    if (
-							 ( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.50) && 	( ahSel(jogo_selecionado.selAway)==-0.5)  &&  ( jogo.gA<=0.0) )  ||
+							( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.50) && 	( ahSel(jogo_selecionado.selAway)==-0.5)  &&  ( jogo.gA<=1) )  ||
 							 ( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( ahSel(jogo_selecionado.selAway)==-0.25)  &&  ( jogo.gA==0.0) )  ||
 							 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( ahSel(jogo_selecionado.selAway)>=0)  &&  ( jogo.gA==0.0) ) 
 						){
 						     if (bot.jaFoiApostado(jogo.home,jogo.away)==false){
 								 //bot.anotar(home+' v '+away+'<<<>>>'+jogo_selecionado.tempo+' '+jogo.ind + ' '+jogo.ind2+'<<<>>>'+bot.textMyBets);
-								 bot.anotar(JSON.stringify(jogo)+'<<<>>>'+bot.textMyBets );
+								 bot.anotar(JSON.stringify(jogo)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
 								 bot.apostar(jogo_selecionado.selAway, ahSel(jogo_selecionado.selAway)<0.0 ? 1.5 : 0 );
 								 console.log(jogo);
 								 console.log('APOSTANDO NO AWAY');
