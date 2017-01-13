@@ -11,7 +11,7 @@
 // @grant        GM_setValue
 
 
-
+  
 //Funções auxiliares
 var seq=function(funcs){
 	var tempo=0;
