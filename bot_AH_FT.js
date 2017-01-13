@@ -5,7 +5,7 @@
 // @description  Utiliza ao vivo no Asian Handicap no segundo tempo
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
-// @match        https://mobile.bet365.com/*#type=Coupon;*key=151017012C1_1_3*
+// @match        https://mobile.bet365.com/*#type=Coupon;*key=151014714C1_1_3*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
