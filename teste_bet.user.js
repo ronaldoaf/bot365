@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         teste_bet
 // @namespace    http://aposte.me/
-// @version      0.1.46.7
+// @version      0.1.47
 // @description  try to take over the world!
 // @author       Ronaldo
 // @require       https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -189,7 +189,7 @@ bot.jogoLive = function (home,away){
 			jogo.selAway=$(jogo.market).find('.ip-Participant').eq(jogo.posSelsJogo[1]);				
 		}
 	});
-	jogo.tempo=Number($(jogo.market).find('.ipe-ParticipantCouponFixtureName_Timer').text().split(':')[0]);
+	jogo.tempo=Number($(jogo.market).find('.ipe-ParticipantCouponFixtureName_Timer').eq(jogo.positionInMarket).text().split(':')[0]);
 	
 	jogo.betHome=function(){ jogo.selHome.click();   };
 	jogo.betAway=function(){ jogo.selAway.click();   };
