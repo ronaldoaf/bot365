@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.2
+// @version      0.2.3
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -159,7 +159,8 @@ bot.onLoadStats=function(response){
 						 ( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
 						 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
                     ){
-						bot.apostar(jogo_selecionado.selHome);		 						   
+						bot.apostar(jogo_selecionado.selHome);	
+						bot.anotar(JSON.stringify(jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
 					}
 		   
 					
@@ -169,7 +170,8 @@ bot.onLoadStats=function(response){
 						 ( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA==0.0)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
 						 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
 					){
-						bot.apostar(jogo_selecionado.selAway);		 
+						bot.apostar(jogo_selecionado.selAway);	
+						bot.anotar(JSON.stringify(jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
 						 
 					}   
 					
