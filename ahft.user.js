@@ -133,14 +133,15 @@ bot.onLoadStats=function(response){
    if(bot.apostando_agora) return;
     
     
-    var anotacoes=[];
+    var anota_jogos=[];
+    var anota_apostas=[];
    //Para jogo no cupom
    $('.ipe-ParticipantCouponFixtureName_Participant').each(function(i,e){
 
 	   var home=$(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(0)').text();
 	   var away=$(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(1)').text();
 	   
-	   
+	   //anota_apostas.push([jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
 	   //Cada jogo do Ajax       
 	   $(jogos).each(function(ii,jogo){			   
 			 //if (apostando_agora) return;
@@ -154,7 +155,7 @@ bot.onLoadStats=function(response){
 				   jogo_selecionado=bot.jogoLive(home,away);
                    
                    //Acumula as anotacoes
-                   anotacoes.push([jogo.home, jogo.away, jogo.ind, jogo.ind2, jogo_selecionado.AH_Home,jogo.gH,primeiroTempo() ,jogo_selecionado.tempo]);
+                   anota_jogos.push([jogo.home, jogo.away, jogo.ind, jogo.ind2, jogo_selecionado.AH_Home,jogo_selecionado.AH_Away,jogo.gH,jogo.gA,primeiroTempo() ,jogo_selecionado.tempo]);
 				   
 					 
 					//Aposta no Home
@@ -164,7 +165,7 @@ bot.onLoadStats=function(response){
 						 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
                     ){
 						bot.apostar(jogo_selecionado.selHome);	
-						anotacoes.push(JSON.stringify(jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
+						anota_apostas.push( jogo );
 					}
 		   
 					
@@ -175,7 +176,7 @@ bot.onLoadStats=function(response){
 						 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
 					){
 						bot.apostar(jogo_selecionado.selAway);	
-						anotacoes.push(JSON.stringify(jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
+						anota_apostas.push( jogo );
 						 
 					}   
 					
@@ -185,7 +186,7 @@ bot.onLoadStats=function(response){
 	   });
    });
    //Envia as anotacoes
-   bot.anotar(JSON.stringify(anotacoes));
+   bot.anotar(JSON.stringify({jogos: anota_jogos, apostas: anota_apostas, myBets: bot.textMyBets, pagina: $('#MarketGrid').html() }));
    
 };  
 
