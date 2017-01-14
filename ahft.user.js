@@ -9,7 +9,11 @@
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
+
+
 // ==/UserScript==
+/* jshint -W097 */
+'use strict';
 
   
 //Funções auxiliares
