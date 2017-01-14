@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.7 
+// @version      0.2.8 
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -112,7 +112,7 @@ bot.anotar=function(nota){
 	GM_xmlhttpRequest({
 		method: "POST",
 		url: "http://aposte.me/live/notas.php",
-		data:  nota,
+		data:  JSON.stringify(nota),
 		onload: function(res){
 			console.log(res.responseText);
 		}
@@ -186,7 +186,7 @@ bot.onLoadStats=function(response){
 	   });
    });
    //Envia as anotacoes
-   bot.anotar(JSON.stringify({jogos: anota_jogos, apostas: anota_apostas, myBets: bot.textMyBets, pagina: $('#MarketGrid').html() }));
+   bot.anotar({jogos: anota_jogos, apostas: anota_apostas, myBets: bot.textMyBets, pagina: $('#MarketGrid').html() });
    
 };  
 
