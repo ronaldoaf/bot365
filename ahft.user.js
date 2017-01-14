@@ -1,20 +1,19 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.0
+// @version      0.2.2
 // @description  Utiliza ao vivo no Asian Handicap no segundo tempo
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
-// @match        https://mobile.bet365.com/*#type=Coupon;*key=151014714C1_1_3*
+// @match        https://mobile.365sport365.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
 
-
 // ==/UserScript==
+
 /* jshint -W097 */
 'use strict';
-
   
 //Funções auxiliares
 var seq=function(funcs){
