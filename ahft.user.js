@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.4
+// @version      0.2.5
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -131,7 +131,9 @@ bot.onLoadStats=function(response){
    
    //Se o flag bot.apostando_agora estiver true, não tenta aposta
    if(bot.apostando_agora) return;
-	
+    
+    
+    var anotacoes=[];
    //Para jogo no cupom
    $('.ipe-ParticipantCouponFixtureName_Participant').each(function(i,e){
 
@@ -139,7 +141,7 @@ bot.onLoadStats=function(response){
 	   var away=$(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(1)').text();
 	   
 	   
-	   //Cada jogo do Ajax
+	   //Cada jogo do Ajax       
 	   $(jogos).each(function(ii,jogo){			   
 			 //if (apostando_agora) return;
 		   
@@ -150,9 +152,11 @@ bot.onLoadStats=function(response){
 				   
 				   //Se o elemento DOM da linha do jogo 
 				   jogo_selecionado=bot.jogoLive(home,away);
-				   bot.anotar(JSON.stringify([jogo.home, jogo.away, jogo.ind, jogo.ind2, jogo_selecionado.AH_Home,jogo.gH,primeiroTempo() ,jogo_selecionado.tempo]));
-
-								 
+                   
+                   //Acumula as anotacoes
+                   anotacoes.push([jogo.home, jogo.away, jogo.ind, jogo.ind2, jogo_selecionado.AH_Home,jogo.gH,primeiroTempo() ,jogo_selecionado.tempo]);
+				   
+					 
 					//Aposta no Home
 					if (
 						 ( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	   ( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
@@ -160,7 +164,7 @@ bot.onLoadStats=function(response){
 						 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
                     ){
 						bot.apostar(jogo_selecionado.selHome);	
-						bot.anotar(JSON.stringify(jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
+						anotacoes.push(JSON.stringify(jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
 					}
 		   
 					
@@ -171,7 +175,7 @@ bot.onLoadStats=function(response){
 						 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
 					){
 						bot.apostar(jogo_selecionado.selAway);	
-						bot.anotar(JSON.stringify(jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
+						anotacoes.push(JSON.stringify(jogo)+'<<<>>>'+JSON.stringify(jogos)+'<<<>>>'+bot.textMyBets+'<<<>>>>'+ $('#MarketGrid').html() );
 						 
 					}   
 					
@@ -180,6 +184,9 @@ bot.onLoadStats=function(response){
 			 }
 	   });
    });
+   //Envia as anotacoes
+   bot.anotar(JSON.stringify(anotacoes));
+   
 };  
 
 
@@ -235,6 +242,9 @@ unsafeWindow.setInterval(function(){
 	if (location.hash)
 	
 	time_=Math.floor( (+new Date) /1000);
+    
+    //Se estiver no primeiro tempo dá uma shift de 15 segundos para que ambos os bots não executem as tarefas ao mesmo tempo
+    if (primeiroTempo()) time_+=15;
     
 	//A cada 30 segundos
 	if ( !(time_ % 30) ) bot.on30segs();
