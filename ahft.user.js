@@ -2,10 +2,10 @@
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
 // @version      0.2.2
-// @description  Utiliza ao vivo no Asian Handicap no segundo tempo
+// @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
-// @match        https://mobile.365sport365.com/*
+// @match        https://mobile.bet365.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -14,33 +14,20 @@
 
 /* jshint -W097 */
 'use strict';
-  
-//Funções auxiliares
-var seq=function(funcs){
-	var tempo=0;
-    $(funcs).each(function(i,e){
-		tempo+=e.t;
-	    setTimeout(e.f, tempo );
-	});
-	return tempo;
-	
-};
+
+const PRIMEIRO_TEMPO = "151017012C1_1_3";
+const SEGUNDO_TEMPO  = "151014714C1_1_3";
 
 
-
-unsafeWindow.jQuery.fn.extend({
-  textOnly: function() {
-    return this.clone()    //clone the element
-               .children() //select all the children
-               .remove()   //remove all the children
-               .end()  //again go back to selected element
-               .text();    //get the text of element
-  }
-});
+function primeiroTempo(){
+   return location.hash.includes(PRIMEIRO_TEMPO);
+}
+function segundoTempo(){
+   return location.hash.includes(SEGUNDO_TEMPO);
+}
 
 
-
-
+console.log([primeiroTempo(),segundoTempo()]);
 
 
 var time_;
@@ -49,8 +36,8 @@ var time_;
 
 unsafeWindow.bot={};
 
-
-
+bot.apostando_agora=false;
+bot.betslipBarEnhanced_selecionado=false;
 bot.stake=function(){
     var soma=0;
 	$( bot.textMyBets.match(/VA=[0-9\.]+/g) ).each(function(i,e){
@@ -115,6 +102,7 @@ bot.jaFoiApostado=function(home,away){
 
 
 bot.apostar=function(selObj){
+	 bot.apostando_agora=true;
 	 selObj.click();
 
 };
@@ -141,7 +129,9 @@ bot.onLoadStats=function(response){
    var jogos=eval(response.responseText);
    console.log(jogos);
    
-   
+   //Se o flag bot.apostando_agora estiver true, não tenta aposta
+   if(bot.apostando_agora) return;
+	
    //Para jogo no cupom
    $('.ipe-ParticipantCouponFixtureName_Participant').each(function(i,e){
 
@@ -151,36 +141,38 @@ bot.onLoadStats=function(response){
 	   
 	   //Cada jogo do Ajax
 	   $(jogos).each(function(ii,jogo){			   
-			 if (apostando_agora) return;
+			 //if (apostando_agora) return;
 		   
 			 if(  (jogo.home==home) && (jogo.away==away) ){
-				 
+				   
 				   //Se já houve aposta nesse jogo sai.
 				   if( bot.jaFoiApostado(home,away) )return;
 				   
 				   //Se o elemento DOM da linha do jogo 
 				   jogo_selecionado=bot.jogoLive(home,away);
-									 
+				 
+
+								 
 					//Aposta no Home
 					if (
-						 ( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  (jogo_selecionado.tempo>25) ) ||
-						 ( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH==0.0)  &&  (jogo_selecionado.tempo>25) ) ||
-						 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  (jogo_selecionado.tempo>25) )  
-					){						     
+						 ( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	   ( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
+						 ( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
+						 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
+                    ){
 						bot.apostar(jogo_selecionado.selHome);		 						   
 					}
 		   
 					
 					//Aposta no Away
 					if (
-						 ( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.5) && 	( jogo_selecionado.AH_Away==-0.5)  &&  ( jogo.gA<=1)  &&  (jogo_selecionado.tempo>25) ) ||
-						 ( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA==0.0)  &&  (jogo_selecionado.tempo>25) ) ||
-						 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  (jogo_selecionado.tempo>25) )  
+						 ( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.5) && 	( jogo_selecionado.AH_Away==-0.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
+						 ( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA==0.0)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
+						 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
 					){
 						bot.apostar(jogo_selecionado.selAway);		 
 						 
 					}   
-					 
+					
 		   
 
 			 }
@@ -193,7 +185,9 @@ bot.onLoadStats=function(response){
 
 
 //---A cada 30 segundos
-bot.on30segs=function(){	
+bot.on30segs=function(){		
+       console.log('on30segs');
+	
 	   //Faz um ajax para o arquivo JSON "http://aposte.me/live/stats.php"
 	   GM_xmlhttpRequest({
 		   method: "GET",
@@ -203,13 +197,13 @@ bot.on30segs=function(){
 		   },
 		   onload: function(response){
              //Pega a lista de apostas ativas
-             $.get('https://mobile.365sport365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
+             $.get('https://mobile.bet365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
                 bot.textMyBets=data;
                 bot.onLoadStats(response);
              });    
              
 			//Pega o valor da banca disponível
-            $.get('https://mobile.365sport365.com/Controls/BetSlip/GetBalance.aspx',function(data){ 
+            $.get('https://mobile.bet365.com/Controls/BetSlip/GetBalance.aspx',function(data){ 
                    bot.balance=Number(data.balance); 
                });
            }
@@ -234,54 +228,59 @@ bot.interativo=function(){
 
 
 
-
-
-
 //Loop Principal repete todos os comandos a cada 1 segund
 unsafeWindow.setInterval(function(){
+	if (location.hash)
+	
 	time_=Math.floor( (+new Date) /1000);
     
 	//A cada 30 segundos
 	if ( !(time_ % 30) ) bot.on30segs();
 	
 	
-	bot.interativo();
-
-   
-	/*
-    //if( (Number($('#betslipBarEnhancedSelectionCount').text())>=2) && $('#betslipBarEnhanced').hasClass('showingBetSlipEnhancedBar'))  $('#betslipBarEnhanced').rclick();
-	 if( $('#betslipBarEnhanced').hasClass('showingBetSlipEnhancedBar'))  $('#betslipBarEnhanced').click();
-
-    if( $('.betReceipt').size()>0 ) {
-		$('button:contains(Continue)').click();
-		window.location.reload();
+	//bot.interativo();
+    
+	
+	//Aparecer a caixa informando que as odds mudaram clica no Botão "Accept"
+	if( !$('.acceptChanges').hasClass('hidden') ) $('button:contains(Accept)').click(); 
+	
+    //Se a betSlipBar aparecer clica nela depois de 5 segundos
+	if( $('#betslipBarEnhanced').hasClass('showingBetSlipEnhancedBar')) {
+		if (bot.betslipBarEnhanced_selecionado==false) { 
+			bot.betslipBarEnhanced_selecionado=true;
+            setTimeout(function(){
+				$('#betslipBarEnhanced').click();   
+			},5000);
+			
+		}
 	}
-    if( !$('.acceptChanges').hasClass('hidden') ) $('button:contains(Accept)').rclick(); 
-   */
+	//Se não aparece a betSlipBar nem o formulário para apostar, indica que não está sendo apostado no momento
+	else if( $('#betSlipOverlay').hasClass('opaque')==false){
+	   bot.apostando_agora=false;
+	}
+    
+	//Se o formulario de aposta aparecer 
+	if ( $('#betSlipOverlay').hasClass('opaque') ){
+	   //deseleciona ao flag bot.betslipBarEnhanced_selecionado
+       bot.betslipBarEnhanced_selecionado=false;
+	   
+	   //Coloca o valor dos stakes para cada seleção
+	   $('.selectionRow').each(function(i,e){ 
+			$(e).find('.stk').val('1.50');
+	   });
+		
+	   //Clica em "Place Bet"
+	   $('.placeBet button').click();		
+	}
+	
+	
+	//Se aparecer o "Botão Continue" depois que apostas foram colocadas, clica nele
+	if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();
+	
 },1000);
 
 
-
-/*
-$('body').on('DOMNodeInserted', '#betSlipOverlay.opaque', function () {
-	unsafeWindow.setTimeout( function(){ 
-		
-		//Se tiver 2 ou mais apostas Limpa
-		if(Number($('#BetSlipCount span').text())>=2) $('.removeAll').rclick();
-		
-		//Se tiver 1 aposta então placeBet
-		if(Number($('#BetSlipCount span').text())==1){
-           $('.stk').val('1.50');
-		   
-		
-		    setTimeout(function(){
-               $('.placeBet').rclick();
-		    },1000);
-		
-		}
-		
-		
-	},5000);
-});
-
-*/
+//A cada 15 minutos recarrega a pagina
+window.setInterval(function(){
+    window.location.reload();
+},15*60*1000);
