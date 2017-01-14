@@ -9,7 +9,7 @@
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
-
+// ==/UserScript==
 
   
 //Funções auxiliares
