@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.9 
+// @version      0.2.10
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -155,7 +155,7 @@ bot.onLoadStats=function(response){
 				   jogo_selecionado=bot.jogoLive(home,away);
                    
                    //Acumula as anotacoes
-                   anota_jogos.push([jogo.home, jogo.away, jogo.ind, jogo.ind2, jogo_selecionado.AH_Home,jogo_selecionado.AH_Away,jogo.gH,jogo.gA,primeiroTempo() ,jogo_selecionado.tempo]);
+                   //anota_jogos.push([jogo.home, jogo.away, jogo.ind, jogo.ind2, jogo_selecionado.AH_Home,jogo_selecionado.AH_Away,jogo.gH,jogo.gA,primeiroTempo() ,jogo_selecionado.tempo]);
 				   
 					 
 					//Aposta no Home
@@ -186,7 +186,7 @@ bot.onLoadStats=function(response){
 	   });
    });
    //Envia as anotacoes
-   bot.anotar({jogos: anota_jogos, apostas: anota_apostas, myBets: bot.textMyBets, pagina: $('#MarketGrid').html() });
+   bot.anotar({jogos: JSON.stringify(jogos), apostas: anota_apostas, myBets: bot.textMyBets, pagina: $('#MarketGrid').html() });
    
 };  
 
