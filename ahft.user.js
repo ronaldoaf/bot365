@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.10
+// @version      0.2.11
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -25,6 +25,19 @@ function primeiroTempo(){
 function segundoTempo(){
    return location.hash.includes(SEGUNDO_TEMPO);
 }
+
+
+function login(){
+	if($('.mmhdr-UserInfo_UserName').text()==''){
+		$('.hm-HeaderLinkLogin_Launcher').click();
+		$('#PopUp_UserName').val('ronaldoaf');
+		$('#PopUp_Password').val('rr842135');
+		$('#PopUp_KML').val('on');
+		$('#LogInPopUpBttn').click();
+	}
+};
+
+
 
 
 console.log([primeiroTempo(),segundoTempo()]);
@@ -289,6 +302,10 @@ unsafeWindow.setInterval(function(){
 	
 	//Se aparecer o "Botão Continue" depois que apostas foram colocadas, clica nele
 	if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();
+	
+	
+	//Senão estiver logado, loga
+	login()
 	
 },1000);
 
