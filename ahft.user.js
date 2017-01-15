@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.8 
+// @version      0.2.9 
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -89,7 +89,7 @@ bot.jogoLive = function (home,away){
 	});
 	jogo.tempo=Number($(jogo.market).find('.ipe-ParticipantCouponFixtureName_Timer').eq(jogo.positionInMarket).text().split(':')[0]);
 	jogo.AH_Home=ahSel(jogo.selHome);
-	jogo.AH_Home=ahSel(jogo.selAway);
+	jogo.AH_Away=ahSel(jogo.selAway);
 	
 	return jogo;
 };
