@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.12
+// @version      0.2.13
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -25,6 +25,13 @@ function primeiroTempo(){
 function segundoTempo(){
    return location.hash.includes(SEGUNDO_TEMPO);
 }
+
+
+
+//Simula o click real, clicando em um ponto do aleatório do objeto
+unsafeWindow.jQuery.fn.extend({rclick:function(){var a=function(a,b){var c=function(a,b){var c,d=!1;return function(){var e;if(d)e=c,d=!1;else{var f,g,h;do f=2*Math.random()-1,g=2*Math.random()-1,h=f*f+g*g;while(h>=1);h=Math.sqrt(-2*Math.log(h)/h),e=f*h,c=g*h,d=!0}var i=a+b*e;return i>0?i:-i}},d=Math.round(c((b+a)/2,(b-a)/6)());return d>b&&(d=b),d<a&&(d=a),d},b={x1:$(this).offset().left,y1:$(this).offset().top,x2:$(this).offset().left+$(this).width(),y2:$(this).offset().top+$(this).height()},c=function(a,b){var c=document.createEvent("MouseEvent"),d=document.elementFromPoint(a,b);c.initMouseEvent("click",!0,!0,unsafeWindow,null,a,b,0,0,!1,!1,!1,!1,0,null),d.dispatchEvent(c)};c(a(b.x1,b.x2),a(b.y1,b.y2))}});
+
+
 
 
 function login(){
@@ -118,7 +125,7 @@ bot.jaFoiApostado=function(home,away){
 
 bot.apostar=function(selObj){
 	 bot.apostando_agora=true;
-	 selObj.click();
+	 selObj.rclick();
 
 };
 
