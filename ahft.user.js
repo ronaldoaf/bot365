@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.14
+// @version      0.2.15
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -182,9 +182,9 @@ bot.onLoadStats=function(response){
 					 
 					//Aposta no Home
 					if (
-						 ( ( jogo.ind>=1 ) &&  ( jogo.ind2>0) && 	   ( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) ) ||
-						 ( ( jogo.ind>=1 ) &&  ( jogo.ind2>0) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) ) ||
-						 ( ( jogo.ind>=1 ) &&  ( jogo.ind2>0) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
+						 ( ( jogo.ind>=0.5 ) &&  ( jogo.ind2>0) && 	   ( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) ) ||
+						 ( ( jogo.ind>=0.5 ) &&  ( jogo.ind2>0) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH<=0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) ) ||
+						 ( ( jogo.ind>=0.5 ) &&  ( jogo.ind2>0) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.g<=0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
                     ){
 						bot.apostar(jogo_selecionado.selHome);	
 						anota_apostas.push( jogo );
@@ -193,9 +193,9 @@ bot.onLoadStats=function(response){
 					
 					//Aposta no Away
 					if (
-						 ( ( jogo.ind<=-1 ) &&  ( jogo.ind2<0) && 	( jogo_selecionado.AH_Away==-0.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) ) ||
-						 ( ( jogo.ind<=-1 ) &&  ( jogo.ind2<0) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA==0.0)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) ) ||
-						 ( ( jogo.ind<=-1 ) &&  ( jogo.ind2<0) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
+						 ( ( jogo.ind<=-0.5 ) &&  ( jogo.ind2<0) && 	( jogo_selecionado.AH_Away==-0.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) ) ||
+						 ( ( jogo.ind<=-0.5 ) &&  ( jogo.ind2<0) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) ) ||
+						 ( ( jogo.ind<=-0.5 ) &&  ( jogo.ind2<0) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA<=1) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
 					){
 						bot.apostar(jogo_selecionado.selAway);	
 						anota_apostas.push( jogo );
