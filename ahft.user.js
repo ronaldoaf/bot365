@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.15
+// @version      0.2.16
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -149,8 +149,11 @@ bot.onLoadStats=function(response){
    
    //console.log(response);
    var jogos=eval(response.responseText);
-   console.log(jogos);
-   
+   //console.log(jogos);
+   foreach(i in jogos) {
+     var jj=jogos[i];
+     console.log([jj.home, jj.away, jj.ind, jj.ind2]);
+   }
    //Se o flag bot.apostando_agora estiver true, não tenta aposta
    if(bot.apostando_agora) return;
     
