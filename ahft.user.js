@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.11
+// @version      0.2.12
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -51,6 +51,8 @@ unsafeWindow.bot={};
 
 bot.apostando_agora=false;
 bot.betslipBarEnhanced_selecionado=false;
+bot.copiado_betslip=false
+
 bot.stake=function(){
     var soma=0;
 	$( bot.textMyBets.match(/VA=[0-9\.]+/g) ).each(function(i,e){
@@ -296,8 +298,22 @@ unsafeWindow.setInterval(function(){
 	   });
 		
 	   //Clica em "Place Bet"
-	   $('.placeBet button').click();		
+	   $('.placeBet button').click();	   		
 	}
+	
+	
+	
+	//Copia betslip para Debug
+	if( $('.selectionRow').size()>0 ){
+		if(bot.copiado_betslip==false){
+	   		bot.anotar({betslip: $('#betslipContainer').html() } );
+	   		bot.copiado_betslip=true; 	   		
+		}
+	}
+	else{
+		bot.copiado_betslip=false;	
+	}
+		
 	
 	
 	//Se aparecer o "Botão Continue" depois que apostas foram colocadas, clica nele
