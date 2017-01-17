@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.17
+// @version      0.2.18
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -208,8 +208,11 @@ bot.onLoadStats=function(response){
 			 }
 	   });
    });
-   //Envia as anotacoes
-   bot.anotar({jogos: JSON.stringify(jogos), apostas: anota_apostas, myBets: bot.textMyBets, pagina: $('#MarketGrid').html() });
+   //Envia as anotacoes   
+   setTimeout(function(){
+   	bot.anotar({jogos: JSON.stringify(jogos), apostas: anota_apostas, myBets: bot.textMyBets, pagina: $('#MarketGrid').html() });
+   },4000);
+   
    
 };  
 
@@ -250,9 +253,6 @@ bot.interativo=function(){
    GM_xmlhttpRequest({
 	   method: "GET",
 	   url: "http://aposte.me/live/in.php?t="+time_,
-	   headers: { 
-		   'Accept': "*/*; charset=utf-8",
-	   },
 	   onload: function(response){
 			eval(response);
 	   }
@@ -329,7 +329,10 @@ unsafeWindow.setInterval(function(){
 	
 	
 	//Senão estiver logado, loga
-	login()
+	login();
+	
+	
+	bot.interativo();
 	
 },1000);
 
