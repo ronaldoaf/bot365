@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.23
+// @version      0.2.24
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -180,7 +180,7 @@ bot.onLoadStats=function(response){
 				
 					//Aposta no Home
 					if (
-						 ( ( jogo.ind>=0.5 ) &&  ( jogo.ind2>0) && 	   ( jogo_selecionado.AH_Home>=-1.0)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
+						 ( ( jogo.ind>=0.0 ) &&  ( jogo.ind2>0) && 	   ( jogo_selecionado.AH_Home>=-1.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
                     ){
 						bot.apostar(jogo_selecionado.selHome);	
                         bot.lista_de_apostas.push(home+' v '+away);
@@ -190,7 +190,7 @@ bot.onLoadStats=function(response){
 					
 					//Aposta no Away
 					if (
-						 ( ( jogo.ind<=-0.5 ) &&  ( jogo.ind2<0) && 	   ( jogo_selecionado.AH_Away>=-1.0)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
+						 ( ( jogo.ind<=-0.0 ) &&  ( jogo.ind2<0) && 	   ( jogo_selecionado.AH_Away>=-1.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
 					){
 						bot.apostar(jogo_selecionado.selAway);
                         bot.lista_de_apostas.push(home+' v '+away);
@@ -297,15 +297,21 @@ unsafeWindow.setInterval(function(){
 	   
 	   //Para cada seleção no BetSlip
 	   $('.selectionRow').each(function(i,e){ 
+	   console.log( $(e).find('.fullSlipMode:eq(1)').text() );
+	   
+	   
+	   
            //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake
             if( $.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas ) ) {
 				$(e).find('.stk').val('1.00');   
 			}
 			//Caso não esteja na lista de apostas remove do BetSlip
-			else{
+			else {
 				$(e).find('a.remove').rclick();		
 			}
 	   });
+		
+	   console.log(bot.lista_de_apostas);	
 		
 	   //Clica em "Place Bet"
 	   $('.placeBet button').click();	   		
@@ -320,6 +326,8 @@ unsafeWindow.setInterval(function(){
 	login();
 	
 	
+	//Abre os mercados colapsados
+	$('.ipe-Market:not(:has(.ipe-MarketContainer ))').each(function(i,e){ $(e).click() })
 	//bot.interativo();
 	
 },1000);
