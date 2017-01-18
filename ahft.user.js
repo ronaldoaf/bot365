@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.20
+// @version      0.2.21
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -144,7 +144,7 @@ bot.anotar=function(nota){
 
 //---Toda vez que as estatisticas do arquivo JSON forem carregadas
 bot.onLoadStats=function(response){
-   
+   bot.lista_de_apostas=[];
    
    //console.log(response);
    var jogos=eval(response.responseText);
@@ -157,7 +157,6 @@ bot.onLoadStats=function(response){
    if(bot.apostando_agora) return;
     
     
-    var anota_jogos=[];
     var anota_apostas=[];
    //Para jogo no cupom
    $('.ipe-ParticipantCouponFixtureName_Participant').each(function(i,e){
@@ -178,17 +177,13 @@ bot.onLoadStats=function(response){
 				   //Se o elemento DOM da linha do jogo 
 				   jogo_selecionado=bot.jogoLive(home,away);
                    
-                   //Acumula as anotacoes
-                   //anota_jogos.push([jogo.home, jogo.away, jogo.ind, jogo.ind2, jogo_selecionado.AH_Home,jogo_selecionado.AH_Away,jogo.gH,jogo.gA,primeiroTempo() ,jogo_selecionado.tempo]);
-				   
-					 
 				
 					//Aposta no Home
 					if (
 						 ( ( jogo.ind>=0.5 ) &&  ( jogo.ind2>0) && 	   ( jogo_selecionado.AH_Home>=-1.0)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
-
-                    			){
+                    ){
 						bot.apostar(jogo_selecionado.selHome);	
+                        bot.lista_de_apostas.push(home+' v '+away);
 						anota_apostas.push( jogo );
 					}
 		   
@@ -197,7 +192,8 @@ bot.onLoadStats=function(response){
 					if (
 						 ( ( jogo.ind<=-0.5 ) &&  ( jogo.ind2<0) && 	   ( jogo_selecionado.AH_Away>=-1.0)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
 					){
-						bot.apostar(jogo_selecionado.selAway);	
+						bot.apostar(jogo_selecionado.selAway);
+                        bot.lista_de_apostas.push(home+' v '+away);
 						anota_apostas.push( jogo );
 						 
 					}   
@@ -299,28 +295,15 @@ unsafeWindow.setInterval(function(){
 	   //deseleciona ao flag bot.betslipBarEnhanced_selecionado
        bot.betslipBarEnhanced_selecionado=false;
 	   
-	   //Coloca o valor dos stakes para cada seleção
+	   //Para cada seleção no BetSlip
 	   $('.selectionRow').each(function(i,e){ 
-			$(e).find('.stk').val('1.00');
+           //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake
+           if( $.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas ) ) $(e).find('.stk').val('1.00');            
 	   });
 		
 	   //Clica em "Place Bet"
 	   $('.placeBet button').click();	   		
 	}
-	
-	
-	
-	//Copia betslip para Debug
-	if( $('.selectionRow').size()>0 ){
-		if(bot.copiado_betslip==false){
-	   		bot.anotar({betslip: $('#betslipContainer').html() } );
-	   		bot.copiado_betslip=true; 	   		
-		}
-	}
-	else{
-		bot.copiado_betslip=false;	
-	}
-		
 	
 	
 	//Se aparecer o "Botão Continue" depois que apostas foram colocadas, clica nele
