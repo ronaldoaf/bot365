@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.24
+// @version      0.2.25
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -124,7 +124,7 @@ bot.jaFoiApostado=function(home,away){
 
 bot.apostar=function(selObj){
 	 bot.apostando_agora=true;
-	 selObj.rclick();
+	 selObj.click();
 
 };
 
@@ -149,10 +149,7 @@ bot.onLoadStats=function(response){
    //console.log(response);
    var jogos=eval(response.responseText);
    //console.log(jogos);
-   for(i in jogos) {
-     var jj=jogos[i];
-     console.log([jj.home, jj.away, jj.ind, jj.ind2]);
-   }
+
    //Se o flag bot.apostando_agora estiver true, não tenta aposta
    if(bot.apostando_agora) return;
     
@@ -172,18 +169,21 @@ bot.onLoadStats=function(response){
 			 if(  (jogo.home==home) && (jogo.away==away) ){
 				   
 				   //Se já houve aposta nesse jogo sai.
-				   if( bot.jaFoiApostado(home,away) )return;
+				   if( bot.jaFoiApostado(home,away) ) return;
 				   
 				   //Se o elemento DOM da linha do jogo 
 				   jogo_selecionado=bot.jogoLive(home,away);
                    
-				
+
+                 
+                    
+                 
 					//Aposta no Home
 					if (
 						 ( ( jogo.ind>=0.0 ) &&  ( jogo.ind2>0) && 	   ( jogo_selecionado.AH_Home>=-1.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
                     ){
-						bot.apostar(jogo_selecionado.selHome);	
-                        bot.lista_de_apostas.push(home+' v '+away);
+						bot.lista_de_apostas.push(home+' v '+away);
+						bot.apostar(jogo_selecionado.selHome);	                        
 						anota_apostas.push( jogo );
 					}
 		   
@@ -192,11 +192,14 @@ bot.onLoadStats=function(response){
 					if (
 						 ( ( jogo.ind<=-0.0 ) &&  ( jogo.ind2<0) && 	   ( jogo_selecionado.AH_Away>=-1.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
 					){
-						bot.apostar(jogo_selecionado.selAway);
-                        bot.lista_de_apostas.push(home+' v '+away);
+						bot.lista_de_apostas.push(home+' v '+away);
+						bot.apostar(jogo_selecionado.selAway);                        
 						anota_apostas.push( jogo );
 						 
 					}   
+		   
+					
+ 
 					
 		   
 
@@ -302,12 +305,14 @@ unsafeWindow.setInterval(function(){
 	   
 	   
            //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake
-            if( $.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas ) ) {
+            if( $.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas )>-1 ) {
 				$(e).find('.stk').val('1.00');   
 			}
 			//Caso não esteja na lista de apostas remove do BetSlip
 			else {
 				$(e).find('a.remove').rclick();		
+               console.log('Removeu: ' +  $(e).find('.fullSlipMode:eq(1)').text() );
+                
 			}
 	   });
 		
@@ -319,9 +324,20 @@ unsafeWindow.setInterval(function(){
 	
 	
 	//Se aparecer o "Botão Continue" depois que apostas foram colocadas, clica nele
-	if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();
-	
-	
+	if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();    
+    //Se estiver aparecendo o Continui clica
+    if( $('.abetslipRecBtn').size()>0 ) $('.abetslipRecBtn button').click();
+    
+    
+    //Se a Bet Bar amarela ficar travado clica nela	
+    if ( ($('#betslipBar').css('display')!=='none' ) && ( $('#betSlipOverlay.opaque').size()==0 )  ) $('#betslipBar').click();
+    
+    
+
+    
+    
+    
+    
 	//Senão estiver logado, loga
 	login();
 	
