@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.30
+// @version      0.2.31
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -301,7 +301,7 @@ unsafeWindow.setInterval(function(){
        bot.betslipBarEnhanced_selecionado=false;
 	   
 	   //Para cada seleção no BetSlip
-	   $('.selectionRow').each(function(i,e){ 
+	   $('.betSlip .selectionRow').each(function(i,e){ 
 	   console.log( $(e).find('.fullSlipMode:eq(1)').text() );	   
 	   
            //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake
