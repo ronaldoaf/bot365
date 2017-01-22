@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.26
+// @version      0.2.27
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -328,9 +328,9 @@ unsafeWindow.setInterval(function(){
 	
 	
 	//Se aparecer o "Botão Continue" depois que apostas foram colocadas, clica nele
-	if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();    
+	//if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();    
     //Se estiver aparecendo o Continui clica
-    if( $('.abetslipRecBtn').size()>0 ) $('.abetslipRecBtn button').click();
+    //if( $('.abetslipRecBtn').size()>0 ) $('.abetslipRecBtn button').click();
     
     
     //Se a Bet Bar amarela ficar travado clica nela	
@@ -357,3 +357,12 @@ unsafeWindow.setInterval(function(){
 window.setInterval(function(){
     window.location.reload();
 },15*60*1000);
+
+
+
+//Quando o botao continue aparecer depois da aposta realizada clica nele
+$('body').on('DOMNodeInserted', '.betReceipt', function (event) {
+	unsafeWindow.setTimeout( function(){ 
+         $(event.target).find('button:contains(Continue)').rclick();
+	},1000);
+});
