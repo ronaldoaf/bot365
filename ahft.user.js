@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.28
+// @version      0.2.29
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -302,9 +302,7 @@ unsafeWindow.setInterval(function(){
 	   
 	   //Para cada seleção no BetSlip
 	   $('.selectionRow').each(function(i,e){ 
-	   console.log( $(e).find('.fullSlipMode:eq(1)').text() );
-	   
-	   
+	   console.log( $(e).find('.fullSlipMode:eq(1)').text() );	   
 	   
            //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake
             if( $.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas )>-1 ) {
@@ -321,12 +319,16 @@ unsafeWindow.setInterval(function(){
 	   console.log(bot.lista_de_apostas);	
 		
 	   //Clica em "Place Bet"
-	   $('.placeBet button').click();	   		
+	   $('.placeBet button').click();	 
+
+	   //Clica em Continue
+	   $('button:contains(Continue)').click();    
+	   
 	}
 	
 	
 	//Se aparecer o "Botão Continue" depois que apostas foram colocadas, clica nele
-	if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();    
+	//if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();    
     //Se estiver aparecendo o Continui clica
     //if( $('.abetslipRecBtn').size()>0 ) $('.abetslipRecBtn button').click();
     
