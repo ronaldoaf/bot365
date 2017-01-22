@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.2.27
+// @version      0.2.28
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -180,9 +180,8 @@ bot.onLoadStats=function(response){
                  
 					//Aposta no Home
 					if (
-						 ( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	   ( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
+
+						 ( ( jogo.ind>0.00 ) &&  ( jogo.ind2>0.00) && 	( jogo_selecionado.AH_Home>=-1.00)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
                    ){
 						bot.lista_de_apostas.push(home+' v '+away);
 						bot.apostar(jogo_selecionado.selHome);	                        
@@ -192,9 +191,8 @@ bot.onLoadStats=function(response){
 					
 					//Aposta no Away
 					if (
-						 ( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.5) && 	( jogo_selecionado.AH_Away==-0.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA==0.0)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
+
+						 ( ( jogo.ind<-0.00 ) &&  ( jogo.ind2<-0.00) && 	( jogo_selecionado.AH_Away>=-1.00)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=17)) ||  (segundoTempo() && (jogo_selecionado.tempo>=62))    ) )
 					){
 						bot.lista_de_apostas.push(home+' v '+away);
 						bot.apostar(jogo_selecionado.selAway);                        
@@ -328,7 +326,7 @@ unsafeWindow.setInterval(function(){
 	
 	
 	//Se aparecer o "Botão Continue" depois que apostas foram colocadas, clica nele
-	//if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();    
+	if( $('.betReceipt').size()>0 ) $('button:contains(Continue)').click();    
     //Se estiver aparecendo o Continui clica
     //if( $('.abetslipRecBtn').size()>0 ) $('.abetslipRecBtn button').click();
     
@@ -360,9 +358,3 @@ window.setInterval(function(){
 
 
 
-//Quando o botao continue aparecer depois da aposta realizada clica nele
-$('body').on('DOMNodeInserted', '.betReceipt', function (event) {
-	unsafeWindow.setTimeout( function(){ 
-         $(event.target).find('button:contains(Continue)').rclick();
-	},1000);
-});
