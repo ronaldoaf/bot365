@@ -20,3 +20,14 @@ Start tmp2.bat
 Start tmp3.bat
 
 
+
+
+$('.ipe-Market:contains(Draw No Bet)').find('.ipe-Participant').eq(1).click();
+location.href.includes('dnb1');
+
+window.open(url);
+
+function closeTab(){
+    window.open('', '_self', '');
+    window.close();
+} 
