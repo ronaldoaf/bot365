@@ -67,7 +67,7 @@ bot.stake=function(){
 
 	soma+=bot.balance; 
 
-	return (Math.floor(soma*0.05)+0.5);
+	return (Math.floor(soma*0.06)+0.5);
 };
 
 bot.jogoLive = function (home,away){
