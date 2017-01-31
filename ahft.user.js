@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.3.1
+// @version      0.3.2
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -97,6 +97,7 @@ bot.jogoLive = function (home,away){
 	
 	jogo.selecoes=$(jogo.market).find('.ip-Participant ');
 	jogo.numJogos=$(jogo.market).find('.ipe-ParticipantCouponFixtureName_Participant').size();
+	
 	$(jogo.market).find('.ipe-ParticipantCouponFixtureName_Participant').each(function(i,e){ 
 		if( 
 			($(e).find('.ipe-ParticipantCouponFixtureName_TeamName:eq(0)').html()==home)  && 
@@ -105,10 +106,14 @@ bot.jogoLive = function (home,away){
 			jogo.positionInMarket=i;
 			jogo.posSelsJogo=[jogo.positionInMarket, jogo.positionInMarket+jogo.numJogos];
 			jogo.selHome=$(jogo.market).find('.ip-Participant').eq(jogo.posSelsJogo[0]);
-			jogo.selAway=$(jogo.market).find('.ip-Participant').eq(jogo.posSelsJogo[1]);				
+			jogo.selAway=$(jogo.market).find('.ip-Participant').eq(jogo.posSelsJogo[1]);	
 		}
 	});
 	jogo.tempo=Number($(jogo.market).find('.ipe-ParticipantCouponFixtureName_Timer').eq(jogo.positionInMarket).text().split(':')[0]);
+	
+	jogo.gH_atual=Number($(jogo.market).find('.ipe-ParticipantCouponFixtureName_Team1Score').eq(jogo.positionInMarket).text());
+	jogo.gA_atual=Number($(jogo.market).find('.ipe-ParticipantCouponFixtureName_Team2Score').eq(jogo.positionInMarket).text());
+	
 	jogo.AH_Home=ahSel(jogo.selHome);
 	jogo.AH_Away=ahSel(jogo.selAway);
 	
@@ -201,8 +206,12 @@ bot.onLoadStats=function(response){
 						anota_apostas.push( jogo );
 						 
 					}      
-		   
-					
+				    
+					//Limpa bonus DNB
+                    if( (jogo_selecionado.gH_atual==jogo_selecionado.gA_atual) && ( jogo_selecionado.AH_Home==0) && (jogo_selecionado.tempo>=85)  ) {
+                        if( jogo.ind>0 && jogo.ind2>0 ) window.open('https://mobile.bet365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB0');
+                        if( jogo.ind<0 && jogo.ind2<0 ) window.open('https://mobile.bet365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB1');
+                    }
  
 					
 		   
