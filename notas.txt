@@ -1,3 +1,44 @@
+
+
+
+toTimestamp=function(d){ 
+    //Formato mm/dd hh:mm   para  milisegundos
+    return (+new Date(d.split(' ')[0]+"/2017 "+d.split(' ')[1]));
+}
+
+
+hora_atual=+new Date;
+//hora_atual=toTimestamp('02/14 08:00');
+cont_jogos=0
+$('[data-match_id]').each(function(i,e){ 
+    hora=toTimestamp($(e).find('td:eq(1)').html());
+    if ( (hora>=hora_atual) && (hora<hora_atual+60*60*1000) ) cont_jogos+=1;
+})
+console.log(cont_jogos);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 "C:\Program Files\Google\Chrome\Application\chrome.exe" https://mobile.365sport365.com/#type=Coupon;key=151014714C1_1_3; --auto-open-devtools-for-tabs
 
 https://mobile.365sport365.com/#type=Coupon;key=151014714C1_1_3;
