@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.3.2.1
+// @version      0.3.3
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -33,6 +33,20 @@ unsafeWindow.jQuery.fn.extend({rclick:function(){var a=function(a,b){return Math
 
 
 
+
+function atualizaQuantidadeDeJogos(){
+	   GM_xmlhttpRequest({
+		   method: "GET",
+		   url: "http://aposte.me/live/n.php?i1=27&f1=40&i2=75&f2=89&intervalo=15",
+		   headers: { 
+			   'Accept': "*/*; charset=utf-8",
+		   },
+		   onload: function(response){
+		   	GM_setValue('n_jogo',response.responseText);		   
+		   }
+      	    }); 	
+}
+
 function login(){
 	if($('.mmhdr-UserInfo_UserName').text()==''){
 		$('.hm-HeaderLinkLogin_Launcher').click();
@@ -42,6 +56,9 @@ function login(){
 		$('#LogInPopUpBttn').click();
 	}
 };
+
+
+atualizaQuantidadeDeJogos();
 
 
 
@@ -67,7 +84,13 @@ bot.stake=function(){
 
 	soma+=bot.balance; 
 
-	return (Math.floor(soma*0.08)+0.5);
+        n_jogo=Number( GM_getValue('n_jogo') );
+        if (n_jogo<=30.0) n_jogo=30.0;
+        percent=0.20/(n_jogo/10);  
+      
+        
+
+	return (Math.floor(soma*percent)+0.5);
 };
 
 bot.jogoLive = function (home,away){
@@ -366,5 +389,6 @@ unsafeWindow.setInterval(function(){
 
 //A cada 15 minutos recarrega a pagina
 window.setInterval(function(){
+    atualizaQuantidadeDeJogos();
     window.location.reload();
 },15*60*1000);
