@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         History Bet365
 // @namespace    http://aposte.me
-// @version      0.5
+// @version      0.5.1
 // @description  Salva o Historico
 // @author       Ronaldo Araújo de Farias
 // @require      https://cdnjs.cloudflare.com/ajax/libs/taffydb/2.7.3/taffy-min.js
-// @match        https://members.365sport365.com/MEMBERS/History/SportsHistory/HistorySearch/*
-// @match        https://mobile.365sport365.com/*
+// @match        https://members.bet365scommetti.com/MEMBERS/History/SportsHistory/HistorySearch/*
+// @match        https://mobile.bet365scommetti.com/*
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
@@ -25,7 +25,7 @@ function pegaDados(){
         var stake=obj.stake
         obj.retorno=Number($(e).find('.bet-summary-return').text().trim());
 
-        var url='https://members.365sport365.com/Members/History/SportsHistory/GetBetConfirmation?platform=desktop&_='+timestamp+'&Id='+obj.betid+'&BetStatus=0&Bcar=0&Bash='+obj.bash+'&Pebs=0';
+        var url='https://members.bet365scommetti.com/Members/History/SportsHistory/GetBetConfirmation?platform=desktop&_='+timestamp+'&Id='+obj.betid+'&BetStatus=0&Bcar=0&Bash='+obj.bash+'&Pebs=0';
         //console.log(url);
         var bot=(stake % 1 == 0.5);
         if (!bot) return;
@@ -82,7 +82,7 @@ function pegaDados(){
 
 
 
-if (location.host=='members.365sport365.com'){
+if (location.host=='members.bet365scommetti.com'){
     var tempo_espera=0;
     var inter=setInterval(function(){  
         if( $('.bet365-rate-limiting-message').css('display')=='block') tempo_espera+=1;
@@ -116,7 +116,7 @@ if (location.host=='members.365sport365.com'){
 
 
 
-if (location.host=='mobile.365sport365.com'){
+if (location.host=='mobile.bet365scommetti.com'){
     $('body').html($('body').html() + '<center><a href="http://aposte.me/live/bet_history_last.php" target="_blank"  style="font-size:36px;">HISTORY</a></center>');
 
 }
