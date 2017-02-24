@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.1
+// @version      0.4.2
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -16,8 +16,6 @@
 /* jshint -W097 */
 'use strict';
 
-
-if (location.href.includes('mobile.bet365.com')) location.href='https://mobile.365sport365.com/'; 
 
 function verificaSenhaSalva(){
     if((localStorage.senha_bet365==undefined) || (localStorage.senha_bet365=='') ){
