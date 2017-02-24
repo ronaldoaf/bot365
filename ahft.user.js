@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.3.2
+// @version      0.4.0
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -14,6 +14,20 @@
 
 /* jshint -W097 */
 'use strict';
+
+
+function verificaSenhaSalva(){
+    if((localStorage.senha_bet365==undefined) || (localStorage.senha_bet365=='') ){
+        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
+        $('#salvar_senha').click(function(){
+              localStorage.senha_bet365=$('senha').val();
+              location.reload();
+        });
+    }
+}
+verificaSenhaSalva();
+
+
 
 const PRIMEIRO_TEMPO = "151017012C1_1_3";
 const SEGUNDO_TEMPO  = "151014714C1_1_3";
