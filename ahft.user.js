@@ -3,9 +3,8 @@
 // @namespace    http://aposte.me/
 // @version      0.4.2
 // @description  Utiliza ao vivo no Asian Handicap
-// @author       Ronaldo
+// @author       Seu Cuca
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
-// @match        https://mobile.365sport365.com/*
 // @match        https://mobile.bet365.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
@@ -19,7 +18,7 @@
 
 function verificaSenhaSalva(){
     if((localStorage.senha_bet365==undefined) || (localStorage.senha_bet365=='') ){
-        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Rogério, digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
+        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Rogerio, digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
         $('#salvar_senha').click(function(){
               localStorage.senha_bet365=$('#senha').val();
               location.reload();
@@ -245,8 +244,8 @@ bot.onLoadStats=function(response){
 				    
 					//Limpa bonus DNB
                     if( (jogo_selecionado.gH_atual==jogo_selecionado.gA_atual) && ( jogo_selecionado.AH_Home==0) && (jogo_selecionado.tempo>=85)  ) {
-                        if( jogo.ind>0 && jogo.ind2>0 ) window.open('https://mobile.365sport365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB0');
-                        if( jogo.ind<0 && jogo.ind2<0 ) window.open('https://mobile.365sport365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB1');
+                        if( jogo.ind>0 && jogo.ind2>0 ) window.open('https://mobile.bet365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB0');
+                        if( jogo.ind<0 && jogo.ind2<0 ) window.open('https://mobile.bet365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB1');
                     }
  
 					
@@ -280,13 +279,13 @@ bot.on30segs=function(){
 		   },
 		   onload: function(response){
              //Pega a lista de apostas ativas
-             $.get('https://mobile.365sport365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
+             $.get('https://mobile.bet365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
                 bot.textMyBets=data;
                 bot.onLoadStats(response);
              });    
              
 			//Pega o valor da banca disponível
-            $.get('https://mobile.365sport365.com/Controls/BetSlip/GetBalance.aspx',function(data){ 
+            $.get('https://mobile.bet365.com/Controls/BetSlip/GetBalance.aspx',function(data){ 
                    bot.balance=Number(data.balance); 
                });
            }
