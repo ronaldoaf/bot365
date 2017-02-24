@@ -32,6 +32,23 @@ verificaSenhaSalva();
 
 
 
+function atualizaQuantidadeDeJogos(){
+	   GM_xmlhttpRequest({
+		   method: "GET",
+		   url: "http://aposte.me/live/n.php?i1=25&f1=40&i2=70&f2=89&intervalo=15",
+		   headers: { 
+			   'Accept': "*/*; charset=utf-8",
+		   },
+		   onload: function(response){
+		   	GM_setValue('n_jogo',response.responseText);		   
+		   }
+      	    }); 	
+}
+
+atualizaQuantidadeDeJogos();
+
+
+
 const PRIMEIRO_TEMPO = "151017012C1_1_3";
 const SEGUNDO_TEMPO  = "151014714C1_1_3";
 
@@ -83,8 +100,12 @@ bot.stake=function(){
 	});
 
 	soma+=bot.balance; 
+	
+        n_jogo=Number( GM_getValue('n_jogo') );
+        if (n_jogo<=30.0) n_jogo=30.0;
+        percent=0.14/(n_jogo/10);         
 
-	return (Math.floor(soma*0.06)+0.5);
+	return (Math.floor(soma*percent));
 };
 
 bot.jogoLive = function (home,away){
@@ -383,5 +404,6 @@ unsafeWindow.setInterval(function(){
 
 //A cada 15 minutos recarrega a pagina
 window.setInterval(function(){
+    atualizaQuantidadeDeJogos();
     window.location.reload();
 },15*60*1000);
