@@ -88,7 +88,7 @@ bot.stake=function(){
 
         n_jogo=Number( GM_getValue('n_jogo') );
         if (n_jogo<=30.0) n_jogo=30.0;
-        percent=0.20/(n_jogo/10);  
+        percent=0.21/(n_jogo*0.11);  
       
         
 
@@ -212,7 +212,7 @@ bot.onLoadStats=function(response){
 					if (
 						 //( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	   ( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
 						 //( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind>=1.50 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=27)) ||  (segundoTempo() && (jogo_selecionado.tempo>=75))    ) )
+						 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=23)) ||  (segundoTempo() && (jogo_selecionado.tempo>=80))    ) )
                    ){
 						bot.lista_de_apostas.push(home+' v '+away);
 						bot.apostar(jogo_selecionado.selHome);	                        
@@ -224,7 +224,7 @@ bot.onLoadStats=function(response){
 					if (
 						// ( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.5) && 	( jogo_selecionado.AH_Away==-0.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
 						// ( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA==0.0)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind<=-1.50 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=27)) ||  (segundoTempo() && (jogo_selecionado.tempo>=75))    ) )
+						 ( ( jogo.ind<=-1.50 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=23)) ||  (segundoTempo() && (jogo_selecionado.tempo>=80))    ) )
 					){
 						bot.lista_de_apostas.push(home+' v '+away);
 						bot.apostar(jogo_selecionado.selAway);                        
