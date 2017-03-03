@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.3.6
+// @version      0.3.7
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -58,6 +58,19 @@ function login(){
 		$('#LogInPopUpBttn').click();
 	}
 };
+
+function verificaErroDeLogin(){
+   if ( $('.hm-LoginPrompt_Fail').css('display')!='none' ){
+      GM_xmlhttpRequest({
+         url: "http://aposte.me/live/alerta.php",
+         onload: function(res){
+            $('body').html('');
+         }
+      });
+      
+   }
+   
+}
 
 
 atualizaQuantidadeDeJogos();
@@ -380,7 +393,7 @@ unsafeWindow.setInterval(function(){
     
 	//Senão estiver logado, loga
 	login();
-	
+	verificaErroDeLogin();
 	
 	//Abre os mercados colapsados
 	$('.ipe-Market:not(:has(.ipe-MarketContainer ))').each(function(i,e){ $(e).click() })
