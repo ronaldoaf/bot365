@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.3.14
+// @version      0.3.15
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -108,9 +108,8 @@ bot.stake=function(){
       
     
 	
-	if (bot.aposta_maxima>0.0) bot.aposta_maxima;
+	if (bot.aposta_maxima>0.0) return bot.aposta_maxima;
 	
-	return 10.0;
 	return (Math.floor(soma*percent)+0.5);
 };
 
@@ -251,11 +250,6 @@ bot.onLoadStats=function(response){
 						 
 					}      
 				    
-					//Limpa bonus DNB
-                    if( (jogo_selecionado.gH_atual==jogo_selecionado.gA_atual) && ( jogo_selecionado.AH_Home==0) && (jogo_selecionado.tempo>=85)  ) {
-                        if( jogo.ind>0 && jogo.ind2>0 ) window.open('https://mobile.bet365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB0');
-                        if( jogo.ind<0 && jogo.ind2<0 ) window.open('https://mobile.bet365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB1');
-                    }
  
 					
 		   
@@ -263,10 +257,7 @@ bot.onLoadStats=function(response){
 			 }
 	   });
    });
-   //Envia as anotacoes   
-   setTimeout(function(){
-   	bot.anotar({jogos: JSON.stringify(jogos), apostas: anota_apostas, myBets: bot.textMyBets, pagina: $('#MarketGrid').html() });
-   },4000);
+
    
    
 };  
