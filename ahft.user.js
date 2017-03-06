@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.3.12
+// @version      0.3.14
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -92,6 +92,8 @@ bot.apostando_agora=false;
 bot.betslipBarEnhanced_selecionado=false;
 bot.copiado_betslip=false
 
+bot.aposta_maxima=0.0;
+
 bot.stake=function(){
     var soma=0;
 	$( bot.textMyBets.match(/VA=[0-9\.]+/g) ).each(function(i,e){
@@ -104,8 +106,11 @@ bot.stake=function(){
         if (n_jogo<=30.0) n_jogo=30.0;
         percent=0.21/(n_jogo*0.11);  
       
-        
-
+    
+	
+	if (bot.aposta_maxima>0.0) bot.aposta_maxima;
+	
+	return 10.0;
 	return (Math.floor(soma*percent)+0.5);
 };
 
@@ -273,6 +278,8 @@ bot.onLoadStats=function(response){
 //---A cada 30 segundos
 bot.on30segs=function(){		
        console.log('on30segs');
+	   bot.aposta_maxima=0.0;    
+	
 	
 	   //Faz um ajax para o arquivo JSON "http://aposte.me/live/stats.php"
 	   GM_xmlhttpRequest({
@@ -343,6 +350,7 @@ unsafeWindow.setInterval(function(){
 	//Se não aparece a betSlipBar nem o formulário para apostar, indica que não está sendo apostado no momento
 	else if( $('#betSlipOverlay').hasClass('opaque')==false){
 	   bot.apostando_agora=false;
+	   
 	}
     
 	//Se o formulario de aposta aparecer 
@@ -350,29 +358,44 @@ unsafeWindow.setInterval(function(){
 	   //deseleciona ao flag bot.betslipBarEnhanced_selecionado
        bot.betslipBarEnhanced_selecionado=false;
 	   
-	   //Para cada seleção no BetSlip
-	   $('.betSlip .selectionRow').each(function(i,e){ 
-	   console.log( $(e).find('.fullSlipMode:eq(1)').text() );	   
-	   
-           //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake e Handicap
-            if( ($.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas )>-1) && ($(e).find('.fullSlipMode:eq(0)').text().includes('Handicap')) ) {
-				$(e).find('.stk').val(  bot.stake() );   
-			}
-			//Caso não esteja na lista de apostas remove do BetSlip
-			else {
-				$(e).find('a.remove').rclick();		
-               console.log('Removeu: ' +  $(e).find('.fullSlipMode:eq(1)').text() );
-                
-			}
-	   });
 		
-	   console.log(bot.lista_de_apostas);	
-		
-	   //Clica em "Place Bet"
-	   $('.placeBet button').click();	 
+	   //Se estiver no modo da aposta_maxima tem outro comportamento
+	   if(bot.aposta_maxima==0.0){
+		   //Para cada seleção no BetSlip
+		   $('.betSlip .selectionRow').each(function(i,e){ 
+			   console.log( $(e).find('.fullSlipMode:eq(1)').text() );	   
 
+			   //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake e Handicap
+			   if( ($.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas )>-1) && ($(e).find('.fullSlipMode:eq(0)').text().includes('Handicap')) ) {
+				   $(e).find('.stk').val(  bot.stake() );   
+			   }
+			   //Caso não esteja na lista de apostas remove do BetSlip
+			   else {
+				   $(e).find('a.remove').rclick();		
+				   console.log('Removeu: ' +  $(e).find('.fullSlipMode:eq(1)').text() );
+
+			   }
+		   });
+
+		   console.log(bot.lista_de_apostas);	
+
+		   //Clica em "Place Bet"
+		   $('.placeBet button').click();	 
+	   }
+			
+	   if ($('.referDialogue').size()>0){
+		   bot.aposta_maxima=Math.floor(Number( $('.referCanBePlaced .referValue').text() ))-1.5;
+		   $('a:contains(Back to Bet Slip)').click();		   
+		   setTimeout(function(){
+			   $('input.stk').val(bot.maxima_aposta);			   
+		   },1000); 
+	   }
+		
+		
+		
 	   //Clica em Continue
-	   unsafeWindow.$('button:contains(Continue)').click();    
+	   unsafeWindow.$('button:contains(Continue)').click();    		
+		
 	   
 	}
 	
