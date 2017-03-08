@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.5
+// @version      0.4.6
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -103,7 +103,7 @@ bot.stake=function(){
 	
         n_jogo=Number( GM_getValue('n_jogo') );
         if (n_jogo<=30.0) n_jogo=30.0;
-        percent=0.14/(n_jogo/10);         
+        percent=0.25/(n_jogo/10);         
 
 	return (Math.floor(soma*percent));
 };
