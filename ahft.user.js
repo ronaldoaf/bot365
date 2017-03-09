@@ -67,7 +67,7 @@ unsafeWindow.jQuery.fn.extend({rclick:function(){var a=function(a,b){return Math
 function login(){
 	if($('.mmhdr-UserInfo_UserName').text()==''){
 		$('.hm-HeaderLinkLogin_Launcher').click();
-		$('#PopUp_UserName').val('rgoborin');
+		$('#PopUp_UserName').val('guilherme_rpa');
 		$('#PopUp_Password').val(localStorage.senha_bet365);
 		$('#PopUp_KML').val('on');
 		$('#LogInPopUpBttn').click();
