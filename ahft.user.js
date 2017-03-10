@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.5
+// @version      0.4.8
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Seu Cuca
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
