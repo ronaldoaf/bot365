@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.6
+// @version      0.4.8
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -173,14 +173,7 @@ bot.apostar=function(selObj){
 
 
 bot.anotar=function(nota){
-	GM_xmlhttpRequest({
-		method: "POST",
-		url: "http://aposte.me/live/notas.php",
-		data:  JSON.stringify(nota),
-		onload: function(res){
-			console.log(res.responseText);
-		}
-	});
+	
 };
 
 
@@ -314,7 +307,7 @@ bot.interativo=function(){
 unsafeWindow.setInterval(function(){
 	if (location.hash)
 	
-	time_=Math.floor( (+new Date) /1000);
+	time_=Math.floor( (+new Date) /1000)+6;
     
     //Se estiver no primeiro tempo dá uma shift de 15 segundos para que ambos os bots não executem as tarefas ao mesmo tempo
     if (primeiroTempo()) time_+=15;
