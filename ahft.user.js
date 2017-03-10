@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.8
+// @version      0.4.9
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -70,7 +70,7 @@ unsafeWindow.jQuery.fn.extend({rclick:function(){var a=function(a,b){return Math
 function login(){
 	if($('.mmhdr-UserInfo_UserName').text()==''){
 		$('.hm-HeaderLinkLogin_Launcher').click();
-		$('#PopUp_UserName').val('LucasDM19');
+		$('#PopUp_UserName').val('glangrois');
 		$('#PopUp_Password').val(localStorage.senha_bet365);
 		$('#PopUp_KML').val('on');
 		$('#LogInPopUpBttn').click();
