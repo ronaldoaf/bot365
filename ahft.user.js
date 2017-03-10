@@ -311,7 +311,7 @@ bot.interativo=function(){
 unsafeWindow.setInterval(function(){
 	if (location.hash)
 	
-	time_=Math.floor( (+new Date) /1000);
+	time_=Math.floor( (+new Date) /1000)+3;
     
     //Se estiver no primeiro tempo dá uma shift de 15 segundos para que ambos os bots não executem as tarefas ao mesmo tempo
     if (primeiroTempo()) time_+=15;
