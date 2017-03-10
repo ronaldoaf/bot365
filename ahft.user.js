@@ -178,14 +178,8 @@ bot.apostar=function(selObj){
 
 
 bot.anotar=function(nota){
-	GM_xmlhttpRequest({
-		method: "POST",
-		url: "http://aposte.me/live/notas.php",
-		data:  JSON.stringify(nota),
-		onload: function(res){
-			console.log(res.responseText);
-		}
-	});
+	
+
 };
 
 
