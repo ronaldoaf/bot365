@@ -1,11 +1,10 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.9
+// @version      0.4.10
 // @description  Utiliza ao vivo no Asian Handicap
-// @author       Ronaldo
+// @author       Seu Cuca
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
-// @match        https://mobile.365sport365.com/*
 // @match        https://mobile.bet365.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
@@ -17,11 +16,9 @@
 'use strict';
 
 
-if (location.href.includes('mobile.bet365.com')) location.href='https://mobile.365sport365.com/'; 
-
 function verificaSenhaSalva(){
     if((localStorage.senha_bet365==undefined) || (localStorage.senha_bet365=='') ){
-        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
+        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Rogerio, digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
         $('#salvar_senha').click(function(){
               localStorage.senha_bet365=$('#senha').val();
               location.reload();
@@ -70,7 +67,7 @@ unsafeWindow.jQuery.fn.extend({rclick:function(){var a=function(a,b){return Math
 function login(){
 	if($('.mmhdr-UserInfo_UserName').text()==''){
 		$('.hm-HeaderLinkLogin_Launcher').click();
-		$('#PopUp_UserName').val('glangrois');
+		$('#PopUp_UserName').val('glanglois');
 		$('#PopUp_Password').val(localStorage.senha_bet365);
 		$('#PopUp_KML').val('on');
 		$('#LogInPopUpBttn').click();
@@ -173,7 +170,14 @@ bot.apostar=function(selObj){
 
 
 bot.anotar=function(nota){
-	
+	GM_xmlhttpRequest({
+		method: "POST",
+		url: "http://aposte.me/live/notas.php",
+		data:  JSON.stringify(nota),
+		onload: function(res){
+			console.log(res.responseText);
+		}
+	});
 };
 
 
@@ -216,9 +220,9 @@ bot.onLoadStats=function(response){
                  
 					//Aposta no Home
 					if (
-						 ( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	   ( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind>=2.00 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
+						 //( ( jogo.ind>=3.50 ) &&  ( jogo.ind2>=2.5) && 	   ( jogo_selecionado.AH_Home==-0.5)  &&  ( jogo.gH<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
+						 //( ( jogo.ind>=2.50 ) &&  ( jogo.ind2>=1.50) && 	( jogo_selecionado.AH_Home==-0.25)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
+						 ( ( jogo.ind>=1.75 ) &&  ( jogo.ind2>=1.00) && 	( jogo_selecionado.AH_Home>=0)  &&  ( jogo.gH==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=75))    ) )
                    ){
 						bot.lista_de_apostas.push(home+' v '+away);
 						bot.apostar(jogo_selecionado.selHome);	                        
@@ -228,9 +232,9 @@ bot.onLoadStats=function(response){
 					
 					//Aposta no Away
 					if (
-						 ( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.5) && 	( jogo_selecionado.AH_Away==-0.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA==0.0)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
-						 ( ( jogo.ind<=-2.00 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) )
+						 //( ( jogo.ind<=-3.50 ) &&  ( jogo.ind2<=-2.5) && 	( jogo_selecionado.AH_Away==-0.5)  &&  ( jogo.gA<=1)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
+						 //( ( jogo.ind<=-2.50 ) &&  ( jogo.ind2<=-1.50) && 	( jogo_selecionado.AH_Away==-0.25)  &&  ( jogo.gA==0.0)  &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=70))    ) ) ||
+						 ( ( jogo.ind<=-1.75 ) &&  ( jogo.ind2<=-1.00) && 	( jogo_selecionado.AH_Away>=0)  &&  ( jogo.gA==0.0) &&  ( (primeiroTempo() && (jogo_selecionado.tempo>=25)) ||  (segundoTempo() && (jogo_selecionado.tempo>=75))    ) )
 					){
 						bot.lista_de_apostas.push(home+' v '+away);
 						bot.apostar(jogo_selecionado.selAway);                        
@@ -240,8 +244,8 @@ bot.onLoadStats=function(response){
 				    
 					//Limpa bonus DNB
                     if( (jogo_selecionado.gH_atual==jogo_selecionado.gA_atual) && ( jogo_selecionado.AH_Home==0) && (jogo_selecionado.tempo>=85)  ) {
-                        if( jogo.ind>0 && jogo.ind2>0 ) window.open('https://mobile.365sport365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB0');
-                        if( jogo.ind<0 && jogo.ind2<0 ) window.open('https://mobile.365sport365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB1');
+                        if( jogo.ind>0 && jogo.ind2>0 ) window.open('https://mobile.bet365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB0');
+                        if( jogo.ind<0 && jogo.ind2<0 ) window.open('https://mobile.bet365.com/default.aspx#type=Coupon;key='+jogo.id2+'C1_1_3;DNDB1');
                     }
  
 					
@@ -275,13 +279,13 @@ bot.on30segs=function(){
 		   },
 		   onload: function(response){
              //Pega a lista de apostas ativas
-             $.get('https://mobile.365sport365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
+             $.get('https://mobile.bet365.com/mybets/mybetsdata.ashx?pt=0&tl=OPENBETS%3B__time&ci=28', function(data){ 
                 bot.textMyBets=data;
                 bot.onLoadStats(response);
              });    
              
 			//Pega o valor da banca disponível
-            $.get('https://mobile.365sport365.com/Controls/BetSlip/GetBalance.aspx',function(data){ 
+            $.get('https://mobile.bet365.com/Controls/BetSlip/GetBalance.aspx',function(data){ 
                    bot.balance=Number(data.balance); 
                });
            }
