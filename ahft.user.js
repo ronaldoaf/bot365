@@ -32,7 +32,7 @@ verificaSenhaSalva();
 function atualizaQuantidadeDeJogos(){
 	   GM_xmlhttpRequest({
 		   method: "GET",
-		   url: "http://aposte.me/live/n.php?i1=25&f1=40&i2=70&f2=89&intervalo=15",
+		   url: "http://aposte.me/live/n.php?i1=25&f1=40&i2=70&f2=89&intervalo=25",
 		   headers: { 
 			   'Accept': "*/*; charset=utf-8",
 		   },
@@ -100,7 +100,7 @@ bot.stake=function(){
 	
         n_jogo=Number( GM_getValue('n_jogo') );
         if (n_jogo<=30.0) n_jogo=30.0;
-        percent=0.21/(n_jogo/10);         
+        percent=0.20/(n_jogo/10);         
 
 	return (Math.floor(soma*percent));
 };
