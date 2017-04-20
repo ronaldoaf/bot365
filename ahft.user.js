@@ -100,7 +100,7 @@ bot.stake=function(){
 	
         n_jogo=Number( GM_getValue('n_jogo') );
         if (n_jogo<=30.0) n_jogo=30.0;
-        percent=0.20/(n_jogo/10);         
+        percent=0.27/(n_jogo/10);         
 
 	return (Math.floor(soma*percent));
 };
