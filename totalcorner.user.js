@@ -1,13 +1,17 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.2
+// @version      0.3
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        http://www.totalcorner.com/match/today
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
+var toTimestamp=function(d){ 
+	//Formato mm/dd hh:mm   para  milisegundos
+	return (+new Date(d.split(' ')[0]+"/"+(new Date().getFullYear())+" "+d.split(' ')[1]));
+}
 
 $(document).ready(function(){
 	
@@ -38,6 +42,7 @@ $(document).ready(function(){
 			DATA.push( {
 				id:   Number($(e).attr('data-match_id')), 
 				time_:$(e).find('.match_status_minutes').text(),
+				timestamp: -4*60*60*1000+Number(   toTimestamp( $(e).find('td:eq(1)').text() )  ),
 				home: $(e).find('td:eq(3) a').text(), 
 				away: $(e).find('td:eq(5) a').text(), 
 				HA: -7.0,
