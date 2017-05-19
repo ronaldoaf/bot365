@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.5.1
+// @version      0.5.2
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -358,15 +358,21 @@ unsafeWindow.setInterval(function(){
 		   //Clica em "Place Bet"
 		   $('.placeBet button').click();	 
 	   }
-			
+		
+	    if ($('.referDialogue').size()>0) $('#okButton').click();
+	    /*		
 	   if ($('.referDialogue').size()>0){
+		   
+		  
 		   bot.aposta_maxima=Math.floor(Number( $('.referCanBePlaced .referValue').text() ))-1.5;
 		   $('a:contains(Back to Bet Slip)').click();		   
 		   setTimeout(function(){
 			   $('input.stk').val(bot.maxima_aposta);			   
 		   },1000); 
+		   
+		   
 	   }
-		
+	   */	
 		
 		
 	   //Clica em Continue
