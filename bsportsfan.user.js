@@ -29,7 +29,7 @@ setInterval(function(){
      });  
   });
   
-  setTimeout(console.log( stats ) ); 
+  setTimeout(console.log( stats ),15000 ); 
 
 
 },20000);
