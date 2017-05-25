@@ -67,7 +67,7 @@ unsafeWindow.jQuery.fn.extend({rclick:function(){var a=function(a,b){return Math
 function login(){
 	if($('.mmhdr-UserInfo_UserName').text()==''){
 		$('.hm-HeaderLinkLogin_Launcher').click();
-		$('#PopUp_UserName').val('guilherme_rpa');
+		$('#PopUp_UserName').val('glasysilva');
 		$('#PopUp_Password').val(localStorage.senha_bet365);
 		$('#PopUp_KML').val('on');
 		$('#LogInPopUpBttn').click();
@@ -100,7 +100,7 @@ bot.stake=function(){
 	
         n_jogo=Number( GM_getValue('n_jogo') );
         if (n_jogo<=30.0) n_jogo=30.0;
-        percent=0.27/(n_jogo/10);         
+        percent=0.20/(n_jogo/10);         
 
 	return (Math.floor(soma*percent));
 };
