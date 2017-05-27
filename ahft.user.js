@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.5.2
+// @version      0.5.3
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -359,7 +359,7 @@ unsafeWindow.setInterval(function(){
 		   $('.placeBet button').click();	 
 	   }
 		
-	    if ($('.referDialogue').size()>0) $('#okButton').click();
+	    
 	    /*		
 	   if ($('.referDialogue').size()>0){
 		   
