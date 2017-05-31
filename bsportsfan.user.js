@@ -11,6 +11,8 @@ setInterval(function(){
      $.get(href,function(data){  
         stats.push({
            id:Number( href.split('/')[2] ),
+          
+           time:$(data).find('.race-time').text().trim().replace("'",""),
 
            gH:Number( $(data).find("td:contains(Goals)").parent().find("td.text-right").text() ),
            gA:Number( $(data).find("td:contains(Goals)").parent().find("td:eq(2)").text() ),
