@@ -29,6 +29,9 @@ setInterval(function(){
            sfH:Number($(data).find("td:contains(Off Target)").parent().find(".sr-only:eq(0)").text()),
            sfA:Number($(data).find("td:contains(Off Target)").parent().find(".sr-only:eq(1)").text()),
 
+           atH:Number($(data).find("td:contains(Attacks):not(:contains(Dangerous))").parent().find(".sr-only:eq(0)").text()),
+           atA:Number($(data).find("td:contains(Attacks):not(:contains(Dangerous))").parent().find(".sr-only:eq(1)").text()),
+          
            daH:Number($(data).find("td:contains(Dangerous Attacks)").parent().find(".sr-only:eq(0)").text()),
            daA:Number($(data).find("td:contains(Dangerous Attacks)").parent().find(".sr-only:eq(1)").text()),
    
