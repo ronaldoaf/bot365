@@ -28,7 +28,11 @@ setInterval(function(){
            sfA:Number($(data).find("td:contains(Off Target)").parent().find(".sr-only:eq(1)").text()),
 
            daH:Number($(data).find("td:contains(Dangerous Attacks)").parent().find(".sr-only:eq(0)").text()),
-           daA:Number($(data).find("td:contains(Dangerous Attacks)").parent().find(".sr-only:eq(1)").text())
+           daA:Number($(data).find("td:contains(Dangerous Attacks)").parent().find(".sr-only:eq(1)").text()),
+   
+           pH:Number($(data).find("td:contains(Possession)").parent().find(".sr-only:eq(0)").text()),
+           pA:Number($(data).find("td:contains(Possession)").parent().find(".sr-only:eq(1)").text())  
+          
         });     
      });  
   });
