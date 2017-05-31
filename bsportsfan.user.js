@@ -1,5 +1,8 @@
 //https://bsportsfan.com/ci/Soccer
 
+var tempo_intervalo=30;  //tempo em segundos
+
+
 setInterval(function(){   
   var stats=[];
   $('.c_1').each(function(){  
@@ -30,8 +33,17 @@ setInterval(function(){
      });  
   });
   
-  setTimeout(function(){ console.log( stats ) },15000 ); 
+  //setTimeout(function(){ console.log( stats ) },15000 ); 
 
+  var cont=0;
+  var espera_stats=setInterval(function(){
+    cont+=1;
+    if( ($(stats).length==$('.c_1').length) || (cont>=tempo_intervalo-1) ){
+      clearInterval(espera_stats);
+      console.log( stats );   
+    } 
+  },1000);
+  
 
-},20000);
+},tempo_intervalo*1000);
 
