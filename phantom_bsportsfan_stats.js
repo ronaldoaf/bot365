@@ -95,7 +95,7 @@ setInterval(function(){
 
 setTimeout(function(){
     phantom.exit();
-},(10*60)*1000);
+},(17*60)*1000);
 
 
 
