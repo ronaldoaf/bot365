@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.5.3
+// @version      0.5.4
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Ronaldo
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -97,7 +97,7 @@ bot.apostando_agora=false;
 bot.betslipBarEnhanced_selecionado=false;
 bot.copiado_betslip=false
 
-bot.aposta_maxima=0.0;
+
 
 bot.stake=function(){
     var soma=0;
@@ -113,7 +113,7 @@ bot.stake=function(){
       
     
 	
-	if (bot.aposta_maxima>0.0) return bot.aposta_maxima;
+	
 	
 	return (Math.floor(soma*percent)+0.5);
 };
@@ -254,7 +254,7 @@ bot.onLoadStats=function(response){
 //---A cada 30 segundos
 bot.on30segs=function(){		
        console.log('on30segs');
-	   bot.aposta_maxima=0.0;    
+	     
 	
 	
 	   //Faz um ajax para o arquivo JSON "http://aposte.me/live/stats.php"
@@ -335,29 +335,28 @@ unsafeWindow.setInterval(function(){
        bot.betslipBarEnhanced_selecionado=false;
 	   
 		
-	   //Se estiver no modo da aposta_maxima tem outro comportamento
-	   if(bot.aposta_maxima==0.0){
-		   //Para cada seleção no BetSlip
-		   $('.betSlip .selectionRow').each(function(i,e){ 
-			   console.log( $(e).find('.fullSlipMode:eq(1)').text() );	   
 
-			   //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake e Handicap
-			   if( ($.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas )>-1) && ($(e).find('.fullSlipMode:eq(0)').text().includes('Handicap')) ) {
-				   $(e).find('.stk').val(  bot.stake() );   
-			   }
-			   //Caso não esteja na lista de apostas remove do BetSlip
-			   else {
-				   $(e).find('a.remove').rclick();		
-				   console.log('Removeu: ' +  $(e).find('.fullSlipMode:eq(1)').text() );
+	   //Para cada seleção no BetSlip
+	   $('.betSlip .selectionRow').each(function(i,e){ 
+		   console.log( $(e).find('.fullSlipMode:eq(1)').text() );	   
 
-			   }
-		   });
+		   //Se o jogo que aparece no betSlip está na lista de apostas preenche o stake e Handicap
+		   if( ($.inArray( $(e).find('.fullSlipMode:eq(1)').text(), bot.lista_de_apostas )>-1) && ($(e).find('.fullSlipMode:eq(0)').text().includes('Handicap')) ) {
+			   $(e).find('.stk').val(  bot.stake() );   
+		   }
+		   //Caso não esteja na lista de apostas remove do BetSlip
+		   else {
+			   $(e).find('a.remove').rclick();		
+			   console.log('Removeu: ' +  $(e).find('.fullSlipMode:eq(1)').text() );
 
-		   console.log(bot.lista_de_apostas);	
+		   }
+	   });
 
-		   //Clica em "Place Bet"
-		   $('.placeBet button').click();	 
-	   }
+	   console.log(bot.lista_de_apostas);	
+
+	   //Clica em "Place Bet"
+	   $('.placeBet:not(.disabled) button').click();	 
+	  
 		
 	    
 	    /*		
