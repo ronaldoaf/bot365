@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.10
+// @version      0.4.11
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Seu Cuca
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -18,7 +18,7 @@
 
 function verificaSenhaSalva(){
     if((localStorage.senha_bet365==undefined) || (localStorage.senha_bet365=='') ){
-        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Rogerio, digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
+        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Marcos, digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
         $('#salvar_senha').click(function(){
               localStorage.senha_bet365=$('#senha').val();
               location.reload();
