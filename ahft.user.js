@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.12
+// @version      0.6.0
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Seu Cuca
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -68,7 +68,7 @@ unsafeWindow.jQuery.fn.extend({rclick:function(){var a=function(a,b){return Math
 function login(){
 	if($('.mmhdr-UserInfo_UserName').text()==''){
 		$('.hm-HeaderLinkLogin_Launcher').click();
-		$('#PopUp_UserName').val('rgoborin');
+		$('#PopUp_UserName').val(localStorage.usuario_bet365);
 		$('#PopUp_Password').val(localStorage.senha_bet365);
 		$('#PopUp_KML').val('on');
 		$('#LogInPopUpBttn').click();
