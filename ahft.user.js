@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.6.0
+// @version      1.0.0
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Seu Cuca
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -267,7 +267,7 @@ bot.on30segs=function(){
 	   //Faz um ajax para o arquivo JSON "http://aposte.me/live/stats.php"
 	   GM_xmlhttpRequest({
 		   method: "GET",
-		   url: "http://aposte.me/live/stats.php?t="+time_,
+		   url: "http://aposte.me/AO/stats.json?t="+time_,
 		   headers: { 
 			   'Accept': "*/*; charset=utf-8",
 		   },
@@ -288,16 +288,6 @@ bot.on30segs=function(){
 
 
 
-//Modo interativo
-bot.interativo=function(){
-   GM_xmlhttpRequest({
-	   method: "GET",
-	   url: "http://aposte.me/live/in.php?t="+time_,
-	   onload: function(response){
-			eval(response);
-	   }
-   }); 	
-};
 
 
 
