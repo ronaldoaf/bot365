@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bot_AH_FT
 // @namespace    http://aposte.me/
-// @version      0.4.11
+// @version      1.1.0
 // @description  Utiliza ao vivo no Asian Handicap
 // @author       Seu Cuca
 // @require      https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js
@@ -18,9 +18,10 @@
 
 function verificaSenhaSalva(){
     if((localStorage.senha_bet365==undefined) || (localStorage.senha_bet365=='') ){
-        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Marcos, digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
+        $('body').html('<center><br><div style="font-size:18px; border:1px solid"><br><p>Digite o seu usuário da Bet365</p><br><input id="usuario" /><br><p>Digite a sua senha da Bet365</p><br><input id="senha" /><button id="salvar_senha">Salvar</button><br><br></div></center>');
         $('#salvar_senha').click(function(){
               localStorage.senha_bet365=$('#senha').val();
+			  localStorage.usuario_bet365=$('#usuario').val();
               location.reload();
         });
     }
@@ -67,7 +68,7 @@ unsafeWindow.jQuery.fn.extend({rclick:function(){var a=function(a,b){return Math
 function login(){
 	if($('.mmhdr-UserInfo_UserName').text()==''){
 		$('.hm-HeaderLinkLogin_Launcher').click();
-		$('#PopUp_UserName').val('rgoborin');
+		$('#PopUp_UserName').val(localStorage.usuario_bet365);
 		$('#PopUp_Password').val(localStorage.senha_bet365);
 		$('#PopUp_KML').val('on');
 		$('#LogInPopUpBttn').click();
@@ -287,16 +288,6 @@ bot.on30segs=function(){
 
 
 
-//Modo interativo
-bot.interativo=function(){
-   GM_xmlhttpRequest({
-	   method: "GET",
-	   url: "http://aposte.me/live/in.php?t="+time_,
-	   onload: function(response){
-			eval(response);
-	   }
-   }); 	
-};
 
 
 
