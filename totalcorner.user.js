@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.4
+// @version      0.4.1
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        http://www.totalcorner.com/match/today
@@ -50,8 +50,8 @@ $(document).ready(function(){
 				home: $(e).find('td:eq(3) a').text(), 
 				away: $(e).find('td:eq(5) a').text(), 
 				HA: -7.0,
-				gH: Number($(e).find('.span_match_corner').text().split(' - ')[0]),
-				gA: Number($(e).find('.span_match_corner').text().split(' - ')[1]),
+				gH: Number($(e).find('.match_goal').text().split(' - ')[0]),
+				gA: Number($(e).find('.match_goal').text().split(' - ')[1]),
 				daH: Number($(e).find('.match_dangerous_attacks_div').text().split(' - ')[0]),
 				daA: Number($(e).find('.match_dangerous_attacks_div').text().split(' - ')[1]),
 				soH: Number($(e).find('.match_on_div').text().split(' - ')[0]),
