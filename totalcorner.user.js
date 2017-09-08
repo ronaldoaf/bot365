@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.4.1
+// @version      0.4.2
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        http://www.totalcorner.com/match/today
@@ -29,7 +29,7 @@ $(document).ready(function(){
 	
 	//Se não estiver aparecendo a columa "on target", refaz o login e define as colunas corretas
     if( $('th:contains(on target)').size()<1 ) {
-		$.post('http://www.totalcorner.com/user/login','password=rr842135&username=ronaldoaf');
+		$.post('http://www.totalcorner.com/user/login','password=rrr842135&username=ronaldoaf');
 		setTimeout(function(){
              $.post('http://www.totalcorner.com/user/select_match_list_columns','asian_handicap=on&corner_score=on&total_corners=on&total_goals=on&dangerous_attack=on&shoot_on=on&shoot_off=on&events=on&save=today');
 		},3000);
