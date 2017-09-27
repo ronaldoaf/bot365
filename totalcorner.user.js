@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.4.2
+// @version      0.4.3
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
-// @match        http://www.totalcorner.com/match/today
+// @match        *://www.totalcorner.com/match/today
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
