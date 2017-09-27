@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.5.1
+// @version      0.5.2
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        *://www.totalcorner.com/match/today
@@ -40,15 +40,12 @@ $(document).ready(function(){
 		var DATA=[];
 		$('.minutes_postfix').parents('tr').each(function(i,e){ 
 
-			var home=$(e).find('td:eq(3) a').text();
-			var away=$(e).find('td:eq(5) a').text();
-
 			DATA.push( {
 				id:   Number($(e).attr('data-match_id')), 
 				time_:$(e).find('.match_status_minutes').text(),
 				timestamp: -4*60*60*1000+Number(   toTimestamp( $(e).find('td:eq(1)').text() )  ),
-				home: $(e).find('td:eq(3) a').text(), 
-				away: $(e).find('td:eq(5) a').text(), 
+				home:$(e).find('.match_home a').text(), 
+				away: $(e).find('.match_away a').text(), 
 				HA: -7.0,
 				gH: Number($(e).find('.match_goal').text().split(' - ')[0]),
 				gA: Number($(e).find('.match_goal').text().split(' - ')[1]),
