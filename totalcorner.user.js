@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Extrai Stats Totalcorner
 // @namespace    http://aposte.me
-// @version      0.4.4
+// @version      0.5.0
 // @description  Extrai Stats Totalcorner
 // @author       Ronlado Araújo de Farias
 // @match        *://www.totalcorner.com/match/today
@@ -62,6 +62,16 @@ $(document).ready(function(){
 			}); 
 		});	
 		$.post('http://aposte.me/live/atualiza_live_bet365_REST.php', JSON.stringify(DATA), function(data) {console.log(data) });
+		GM_xmlhttpRequest ({
+		    method:     "POST",
+		    url:        "http://aposte.me/live/atualiza_live_bet365_REST.php",
+		    data:       JSON.stringify(DATA),
+		    onload:     function (data) {
+			console.log(data);
+		    }
+		});
+		
+		
 	},15000);	
 
 });
